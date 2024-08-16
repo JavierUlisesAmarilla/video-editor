@@ -1,10 +1,10 @@
-import { FormEventHandler } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react'
+import GuestLayout from '@/Layouts/GuestLayout'
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
+import { Head, useForm } from '@inertiajs/react'
 
 export default function ResetPassword({ token, email }: { token: string, email: string }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,23 +12,23 @@ export default function ResetPassword({ token, email }: { token: string, email: 
         email: email,
         password: '',
         password_confirmation: '',
-    });
+    })
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         post(route('password.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
-        });
-    };
+        })
+    }
 
     return (
         <GuestLayout>
-            <Head title="Reset Password" />
+            <Head title="Reset Password"/>
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email"/>
 
                     <TextInput
                         id="email"
@@ -40,11 +40,11 @@ export default function ResetPassword({ token, email }: { token: string, email: 
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.email} className="mt-2"/>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Password"/>
 
                     <TextInput
                         id="password"
@@ -57,11 +57,11 @@ export default function ResetPassword({ token, email }: { token: string, email: 
                         onChange={(e) => setData('password', e.target.value)}
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <InputError message={errors.password} className="mt-2"/>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirm Password"/>
 
                     <TextInput
                         type="password"
@@ -72,7 +72,7 @@ export default function ResetPassword({ token, email }: { token: string, email: 
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                     />
 
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <InputError message={errors.password_confirmation} className="mt-2"/>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
@@ -82,5 +82,5 @@ export default function ResetPassword({ token, email }: { token: string, email: 
                 </div>
             </form>
         </GuestLayout>
-    );
+    )
 }
