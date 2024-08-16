@@ -18,7 +18,11 @@ export default function Dashboard({ auth }: PageProps) {
                 timeline: <div>Timeline</div>,
             }}
             json={{
-                global: { tabEnableClose: false },
+                global: {
+                    tabEnableClose: false,
+                    tabEnableRename: false,
+                    tabSetEnableMaximize: false,
+                },
                 borders: [
                     {
                         type: "border",
