@@ -1,7 +1,7 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
+import globals from "globals"
+import pluginJs from "@eslint/js"
+import tseslint from "typescript-eslint"
+import pluginReact from "eslint-plugin-react"
 
 export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
@@ -11,8 +11,54 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      'arrow-parens': ['error', 'always'],
+      'arrow-spacing': ['error', { before: true, after: true }],
+      'block-spacing': 'error',
+      'brace-style': 'error',
+      'comma-style': ['error', 'last'],
+      'curly': ['error', 'all'],
+      'default-case': 'error',
+      'default-param-last': ['error'],
+      'eol-last': ['error', 'always'],
+      'eqeqeq': ['error', 'always'],
+      'func-call-spacing': ['error', 'never'],
+      'linebreak-style': ['error', 'unix'],
+      'new-cap': 'off',
+      'no-alert': 'error',
+      'no-empty-function': 'error',
+      'no-eq-null': 'error',
+      'no-eval': 'error',
+      'no-implied-eval': 'error',
+      'no-invalid-this': 'error',
+      'no-irregular-whitespace': ['error'],
+      'no-lone-blocks': 'error',
+      'no-lonely-if': 'error',
+      'no-loop-func': 'error',
+      'no-mixed-operators': 'off',
+      'no-multi-assign': ['error', { ignoreNonDeclaration: true }],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
+      'no-return-assign': 'error',
+      'no-shadow': 'error',
+      'no-undef-init': 'error',
+      'no-unneeded-ternary': 'error',
+      'no-unused-expressions': 'error',
+      'no-useless-call': 'error',
+      'no-useless-computed-key': 'error',
+      'no-useless-concat': 'error',
+      'no-useless-constructor': 'error',
+      'no-useless-return': 'error',
+      'no-trailing-spaces': ['error'],
+      'react/jsx-closing-bracket-location': 'error',
+      'react/jsx-closing-tag-location': 'error',
+      'react/jsx-equals-spacing': [2, 'never'],
+      'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'never' }],
       'react/react-in-jsx-scope': 'off',
-    }
+      'react/self-closing-comp': 'error',
+      'prefer-const': 'error',
+      'prefer-template': 'error',
+      'require-await': 'error',
+      'semi': ['error', 'never'],
+      'space-infix-ops': ['error'],
+    },
   }
-];
+]

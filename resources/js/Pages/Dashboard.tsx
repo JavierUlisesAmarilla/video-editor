@@ -1,6 +1,6 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
+import { Head } from "@inertiajs/react"
+import { PageProps } from "@/types"
 
 export default function Dashboard({ auth }: PageProps) {
     return (
@@ -12,7 +12,7 @@ export default function Dashboard({ auth }: PageProps) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Dashboard"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -24,5 +24,5 @@ export default function Dashboard({ auth }: PageProps) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }
