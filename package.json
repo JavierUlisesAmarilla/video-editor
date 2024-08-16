@@ -18,6 +18,7 @@
         "axios": "^1.6.4",
         "eslint": "^9.9.0",
         "eslint-plugin-react": "^7.35.0",
+        "flexlayout-react": "^0.7.15",
         "globals": "^15.9.0",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
