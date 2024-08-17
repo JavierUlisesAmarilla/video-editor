@@ -1,12 +1,18 @@
 import {Editor} from "@/Components/Editor/Editor"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
+import {useZustand} from "@/store/useZustand"
 import {PageProps} from "@/types"
 import {Head} from "@inertiajs/react"
+import axios from "axios"
 import {useEffect} from "react"
 
 export default function Dashboard({ auth }: PageProps) {
+  const { setPageArr } = useZustand()
+
   useEffect(() => {
-    console.log("test: Dashboard")
+    axios.get("/getAll").then((res) => {
+      setPageArr(res.data.pages)
+    })
   }, [])
 
   return (

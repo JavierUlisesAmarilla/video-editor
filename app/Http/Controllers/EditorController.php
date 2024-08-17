@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class EditorController extends Controller
 {
+    public function getAll(Request $request): JsonResponse
+    {
+        $values = [];
+        $values['pages'] = Page::get();
+        return response()->json($values);
+    }
+
     public function savePage(Request $request): JsonResponse
     {
         $row = Page::where('id', $request->id)->first();

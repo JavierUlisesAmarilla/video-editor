@@ -1,18 +1,18 @@
-import globals from "globals"
 import pluginJs from "@eslint/js"
-import tseslint from "typescript-eslint"
 import pluginReact from "eslint-plugin-react"
+import globals from "globals"
+import tseslint from "typescript-eslint"
 
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { globals: globals.browser } },
+  {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"]},
+  {languageOptions: {globals: globals.browser}},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     rules: {
       'arrow-parens': ['error', 'always'],
-      'arrow-spacing': ['error', { before: true, after: true }],
+      'arrow-spacing': ['error', {before: true, after: true}],
       'block-spacing': 'error',
       'brace-style': 'error',
       'comma-style': ['error', 'last'],
@@ -35,8 +35,8 @@ export default [
       'no-lonely-if': 'error',
       'no-loop-func': 'error',
       'no-mixed-operators': 'off',
-      'no-multi-assign': ['error', { ignoreNonDeclaration: true }],
-      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
+      'no-multi-assign': ['error', {ignoreNonDeclaration: true}],
+      'no-multiple-empty-lines': ['error', {max: 1, maxEOF: 1}],
       'no-return-assign': 'error',
       'no-shadow': 'error',
       'no-undef-init': 'error',
@@ -51,7 +51,7 @@ export default [
       'react/jsx-closing-bracket-location': 'error',
       'react/jsx-closing-tag-location': 'error',
       'react/jsx-equals-spacing': [2, 'never'],
-      'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'never' }],
+      'react/jsx-tag-spacing': ['error', {beforeSelfClosing: 'never'}],
       'react/react-in-jsx-scope': 'off',
       'react/self-closing-comp': 'error',
       'prefer-const': 'error',
