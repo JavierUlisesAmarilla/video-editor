@@ -10,14 +10,12 @@ class EditorController extends Controller
 {
     public function savePage(Request $request): JsonResponse
     {
-        $id = $request->id;
-        $background = $request->background;
-        $row = Page::where('id', $id)->first();
+        $row = Page::where('id', $request->id)->first();
         if (!$row) {
             $row = new Page;
         }
-        if ($background) {
-            $row->background = $background;
+        if ($request->background) {
+            $row->background = $request->background;
         }
         $row->save();
         return response()->json($row);
