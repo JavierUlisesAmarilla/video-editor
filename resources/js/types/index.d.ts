@@ -6,8 +6,8 @@ export interface User {
 }
 
 export interface Page {
-    id: number
-    background: string
+    id?: number
+    background?: string
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
