@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/savePage', [EditorController::class, 'savePage']);
     Route::get('/getPages', [EditorController::class, 'getPages']);
+    Route::delete('/deletePage/{id}', [EditorController::class, 'deletePage']);
 });
 
 require __DIR__ . '/auth.php';

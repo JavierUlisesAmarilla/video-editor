@@ -25,4 +25,9 @@ class EditorController extends Controller
     {
         return response()->json(['pages' => Page::get()]);
     }
+
+    public function deletePage(Request $request): bool
+    {
+        return Page::where('id', $request->id)->delete();
+    }
 }

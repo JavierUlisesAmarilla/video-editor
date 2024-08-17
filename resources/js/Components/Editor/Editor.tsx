@@ -1,4 +1,5 @@
 import {CustomFlexLayout} from "@/Layouts/CustomFlexLayout"
+import {Scene} from "./Scene"
 import {Slide} from "./Slide"
 
 export const Editor = () => {
@@ -6,7 +7,7 @@ export const Editor = () => {
     <CustomFlexLayout
       components={{
         slide: <Slide/>,
-        scene: <div>Scene</div>,
+        scene: <Scene/>,
         asset: <div>Asset</div>,
         timeline: <div>Timeline</div>,
       }}
