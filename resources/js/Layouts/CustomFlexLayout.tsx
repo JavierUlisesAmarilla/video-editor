@@ -1,6 +1,6 @@
 import * as FlexLayout from "flexlayout-react"
 import "flexlayout-react/style/light.css"
-import { ReactNode } from "react"
+import {ReactNode} from "react"
 
 export const CustomFlexLayout = ({
     json,

@@ -1,6 +1,6 @@
-import { useState, createContext, useContext, PropsWithChildren, Dispatch, SetStateAction } from 'react'
-import { Link, InertiaLinkProps } from '@inertiajs/react'
-import { Transition } from '@headlessui/react'
+import {Transition} from '@headlessui/react'
+import {InertiaLinkProps, Link} from '@inertiajs/react'
+import {Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useState} from 'react'
 
 const DropDownContext = createContext<{
     open: boolean;
