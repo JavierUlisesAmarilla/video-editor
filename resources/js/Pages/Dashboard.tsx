@@ -5,6 +5,7 @@ import {PageProps} from "@/types"
 import {Head} from "@inertiajs/react"
 import axios from "axios"
 import {useEffect} from "react"
+import {ToastContainer} from "react-toast"
 
 export default function Dashboard({ auth }: PageProps) {
   const { setPageArr } = useZustand()
@@ -19,6 +20,7 @@ export default function Dashboard({ auth }: PageProps) {
     <AuthenticatedLayout user={auth.user}>
       <Head title="Dashboard"/>
       <Editor/>
+      <ToastContainer position="bottom-right" delay={3000}/>
     </AuthenticatedLayout>
   )
 }

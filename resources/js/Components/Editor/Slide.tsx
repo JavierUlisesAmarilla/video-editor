@@ -3,6 +3,7 @@ import {Page} from "@/types"
 import axios from "axios"
 import classNames from "classnames"
 import {BsCardImage, BsPlusSquare} from "react-icons/bs"
+import {toast} from "react-toast"
 
 export const Slide = () => {
   const { pageArr, addPage, selPageId, setSelPageId } = useZustand()
@@ -31,6 +32,7 @@ export const Slide = () => {
         onClick={async () => {
           const newPage: Page = {}
           const res = await axios.post("/savePage", newPage)
+          toast("New page created.")
           newPage.id = res.data.id
           addPage(newPage)
           setSelPageId(newPage.id!)

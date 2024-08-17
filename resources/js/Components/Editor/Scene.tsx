@@ -4,9 +4,11 @@ import axios from "axios"
 import classNames from "classnames"
 import {BiRedo, BiSolidBrush, BiUndo} from "react-icons/bi"
 import {BsPlusSquare, BsTrash} from "react-icons/bs"
+import {toast} from "react-toast"
 
 export const Scene = () => {
-  const { selPageId, setSelPageId, addPage, removePage } = useZustand()
+  const { pageArr, selPageId, setSelPageId, addPage, removePage } =
+    useZustand()
 
   return (
     <div className="w-full h-full flex flex-col text-sm">
@@ -36,6 +38,9 @@ export const Scene = () => {
                 const res = await axios.delete(`/deletePage/${selPageId}`)
 
                 if (res.data) {
+                  toast(
+                    `Page ${pageArr.findIndex((v) => v.id === selPageId) + 1} removed.`
+                  )
                   removePage(selPageId)
                   setSelPageId(0)
                 }
@@ -50,6 +55,7 @@ export const Scene = () => {
             onClick={async () => {
               const newPage: Page = {}
               const res = await axios.post("/savePage", newPage)
+              toast("New page created.")
               newPage.id = res.data.id
               addPage(newPage)
               setSelPageId(newPage.id!)
