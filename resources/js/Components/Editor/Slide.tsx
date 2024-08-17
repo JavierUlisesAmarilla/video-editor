@@ -19,7 +19,7 @@ export const Slide = () => {
           key={idx}
         >
           <BsCardImage className="text-8xl w-full"/>
-          <div className="absolute top-1 left-1 bg-yellow-500 px-3 py-1 rounded-full border border-red-500 text-red-500">
+          <div className="absolute top-1 left-1 bg-black px-3 py-0.5 rounded border text-white border-gray-500">
             {idx + 1}
           </div>
         </div>

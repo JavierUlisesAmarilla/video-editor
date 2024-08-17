@@ -10,7 +10,7 @@ export default function Dashboard({ auth }: PageProps) {
   const { setPageArr } = useZustand()
 
   useEffect(() => {
-    axios.get("/getAll").then((res) => {
+    axios.get("/getPages").then((res) => {
       setPageArr(res.data.pages)
     })
   }, [])
