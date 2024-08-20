@@ -1,4 +1,5 @@
 import {CustomFlexLayout} from "@/Layouts/CustomFlexLayout"
+import {Asset} from "./Asset/Asset"
 import {Scene} from "./Scene"
 import {Slide} from "./Slide"
 
@@ -8,7 +9,7 @@ export const Editor = () => {
       components={{
         slide: <Slide/>,
         scene: <Scene/>,
-        asset: <div>Asset</div>,
+        asset: <Asset/>,
         timeline: <div>Timeline</div>,
       }}
       json={{
