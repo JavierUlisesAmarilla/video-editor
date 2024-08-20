@@ -46,7 +46,7 @@ export const Asset = () => {
         {Object.keys(assets).map((k) => (
           <div
             className={classNames(
-              "flex flex-col items-center p-2 cursor-pointer bg-opacity-50 rounded w-full",
+              "flex flex-col items-center p-1 cursor-pointer bg-opacity-50 rounded w-full",
               { "bg-gray-500": k === selAssetId }
             )}
             key={k}
@@ -57,7 +57,7 @@ export const Asset = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1">{assets[selAssetId].content}</div>
+      <div className="flex-1">{selAssetId && assets[selAssetId].content}</div>
     </div>
   )
 }

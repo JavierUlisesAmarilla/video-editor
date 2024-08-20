@@ -48,7 +48,7 @@ export const Editor = () => {
             },
             {
               type: "tabset",
-              weight: 7,
+              weight: 8,
               children: [
                 {
                   type: "tab",
@@ -59,7 +59,7 @@ export const Editor = () => {
             },
             {
               type: "tabset",
-              weight: 2,
+              weight: 3,
               children: [
                 {
                   type: "tab",
