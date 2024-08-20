@@ -57,7 +57,7 @@ export const Asset = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1">{selAssetId && assets[selAssetId].content}</div>
+      <div className="flex-1 overflow-auto">{selAssetId && assets[selAssetId].content}</div>
     </div>
   )
 }
