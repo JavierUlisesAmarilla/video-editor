@@ -5,6 +5,7 @@ import {BiCube} from "react-icons/bi"
 import {BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
 import {GiCarambola} from "react-icons/gi"
 import {HiOutlineTemplate} from "react-icons/hi"
+import {Multimedia} from "./Multimedia"
 import {Text} from "./Text"
 
 const assets: {
@@ -18,6 +19,7 @@ const assets: {
   multimedia: {
     icon: <BsTv className="text-5xl"/>,
     title: "Multimedia",
+    content: <Multimedia/>,
   },
   "3d": {
     icon: <BiCube className="text-5xl"/>,
@@ -57,7 +59,9 @@ export const Asset = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1 overflow-auto">{selAssetId && assets[selAssetId].content}</div>
+      <div className="flex-1 overflow-auto p-4">
+        {selAssetId && assets[selAssetId].content}
+      </div>
     </div>
   )
 }
