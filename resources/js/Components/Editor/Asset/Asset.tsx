@@ -5,11 +5,15 @@ import {BiCube} from "react-icons/bi"
 import {BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
 import {GiCarambola} from "react-icons/gi"
 import {HiOutlineTemplate} from "react-icons/hi"
+import {Text} from "./Text"
 
-const assets: { [key: string]: { icon: ReactNode; title: string } } = {
+const assets: {
+  [key: string]: { icon: ReactNode; title: string; content?: ReactNode };
+} = {
   text: {
     icon: <BsTextareaT className="text-5xl"/>,
     title: "Text",
+    content: <Text/>,
   },
   multimedia: {
     icon: <BsTv className="text-5xl"/>,
@@ -53,7 +57,7 @@ export const Asset = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1">Asset</div>
+      <div className="flex-1">{assets[selAssetId].content}</div>
     </div>
   )
 }
