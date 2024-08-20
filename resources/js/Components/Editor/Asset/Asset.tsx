@@ -7,6 +7,7 @@ import {GiCarambola} from "react-icons/gi"
 import {HiOutlineTemplate} from "react-icons/hi"
 import {Multimedia} from "./Multimedia"
 import {Text} from "./Text"
+import {ThreeD} from "./ThreeD"
 
 const assets: {
   [key: string]: { icon: ReactNode; title: string; content?: ReactNode };
@@ -24,6 +25,7 @@ const assets: {
   "3d": {
     icon: <BiCube className="text-5xl"/>,
     title: "3D",
+    content: <ThreeD/>,
   },
   audio: {
     icon: <BsOpticalAudio className="text-5xl"/>,
