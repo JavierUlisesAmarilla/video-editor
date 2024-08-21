@@ -6,7 +6,9 @@ import {BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
 import {GiCarambola} from "react-icons/gi"
 import {HiOutlineTemplate} from "react-icons/hi"
 import {Audio} from "./Audio"
+import {Effect} from "./Effect"
 import {Multimedia} from "./Multimedia"
+import {Template} from "./Template"
 import {Text} from "./Text"
 import {ThreeD} from "./ThreeD"
 
@@ -36,10 +38,12 @@ const assets: {
   effect: {
     icon: <GiCarambola className="text-5xl"/>,
     title: "Effect",
+    content: <Effect/>,
   },
   template: {
     icon: <HiOutlineTemplate className="text-5xl"/>,
     title: "Template",
+    content: <Template/>,
   },
 }
 
