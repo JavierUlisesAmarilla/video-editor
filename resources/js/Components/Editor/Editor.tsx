@@ -73,7 +73,9 @@ export const Editor = () => {
         },
       }}
       onRenderTab={() => {
-        experience?.onResize()
+        setTimeout(() => {
+          experience?.onResize()
+        }, 10)
       }}
     />
   )

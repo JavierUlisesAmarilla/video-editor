@@ -11,8 +11,8 @@ export const Scene = () => {
     useZustand()
 
   return (
-    <div className="w-full h-full flex flex-col text-sm">
-      <div className="flex justify-between items-center p-1">
+    <div className="w-full h-full text-sm relative">
+      <div className="absolute w-full flex justify-between items-center p-1">
         <div className="flex gap-1 items-center">
           <div className="flex gap-1 items-center p-1 border rounded cursor-pointer">
             <BiUndo className="text-base"/>
@@ -66,7 +66,7 @@ export const Scene = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 w-full" id="container"/>
+      <div className="w-full h-full" id="container"/>
     </div>
   )
 }
