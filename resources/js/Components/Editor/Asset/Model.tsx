@@ -90,12 +90,12 @@ const modelArr: { type: string; imageSrc: string; modelSrc: string }[][] =
 
 export const Model = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       {modelArr.map((arr, i1) => (
-        <div className="flex gap-4" key={i1}>
+        <div className="flex gap-2" key={i1}>
           {arr.map((v, i2) => (
             <img
-              className="w-32 h-20 border rounded cursor-pointer"
+              className="w-32 h-20 border rounded cursor-pointer border-gray-500"
               key={i2}
               src={v.imageSrc}
             />

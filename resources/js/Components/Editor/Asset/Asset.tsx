@@ -2,10 +2,11 @@ import {useZustand} from "@/store/useZustand"
 import classNames from "classnames"
 import {ReactNode} from "react"
 import {BiCube} from "react-icons/bi"
-import {BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
+import {BsBack, BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
 import {GiCarambola} from "react-icons/gi"
 import {HiOutlineTemplate} from "react-icons/hi"
 import {Audio} from "./Audio"
+import {Background} from "./Background"
 import {Effect} from "./Effect"
 import {Model} from "./Model"
 import {Multimedia} from "./Multimedia"
@@ -15,6 +16,11 @@ import {Text} from "./Text"
 const assets: {
   [key: string]: { icon: ReactNode; title: string; content?: ReactNode };
 } = {
+  background: {
+    icon: <BsBack className="text-3xl"/>,
+    title: "Background",
+    content: <Background/>,
+  },
   text: {
     icon: <BsTextareaT className="text-3xl"/>,
     title: "Text",

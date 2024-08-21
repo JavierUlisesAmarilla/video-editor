@@ -23,7 +23,7 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
     removePage: (pageId) =>
       set(() => ({ pageArr: get().pageArr.filter((v) => v.id !== pageId) })),
 
-    selAssetId: "text",
+    selAssetId: "background",
     setSelAssetId: (selAssetId) => set(() => ({ selAssetId })),
   }
 }

@@ -21,12 +21,12 @@ const audioArr: { src: string; name: string }[][] = toChunk(
 
 export const Audio = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       {audioArr.map((arr, i1) => (
-        <div className="flex gap-4" key={i1}>
+        <div className="flex gap-2" key={i1}>
           {arr.map((v, i2) => (
             <div
-              className="w-32 h-20 border rounded bg-black text-white flex flex-col items-center justify-center gap-1 cursor-pointer relative"
+              className="w-32 h-20 border rounded bg-black text-white flex flex-col items-center justify-center gap-1 cursor-pointer relative border-gray-500"
               key={i2}
               // @ts-expect-error -- TODO
               onMouseOver={(e) => e.target.lastChild.play()}
