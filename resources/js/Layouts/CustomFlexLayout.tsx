@@ -3,21 +3,22 @@ import "flexlayout-react/style/light.css"
 import {ReactNode} from "react"
 
 export const CustomFlexLayout = ({
-    json,
-    components,
+  json,
+  components,
 }: {
-    json: FlexLayout.IJsonModel;
-    components: Record<string, ReactNode>;
+  json: FlexLayout.IJsonModel;
+  components: Record<string, ReactNode>;
 }) => {
-    const factory = (node: FlexLayout.TabNode) => {
-        const component = node.getComponent() as string
-        return components[component]
-    }
+  const factory = (node: FlexLayout.TabNode) => {
+    const component = node.getComponent() as string
+    return components[component]
+  }
 
-    return (
-        <FlexLayout.Layout
-            model={FlexLayout.Model.fromJson(json)}
-            factory={factory}
-        />
-    )
+  return (
+    <FlexLayout.Layout
+      model={FlexLayout.Model.fromJson(json)}
+      factory={factory}
+      onModelChange={() => console.log("test: onModelChange")}
+    />
+  )
 }
