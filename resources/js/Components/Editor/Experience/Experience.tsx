@@ -10,13 +10,13 @@ const onUpPosition = new THREE.Vector2()
 const onDownPosition = new THREE.Vector2()
 
 export class Experience {
-  container?: HTMLDivElement
+  container?: HTMLElement
   scene?: THREE.Scene
   camera?: THREE.PerspectiveCamera
   renderer?: THREE.WebGLRenderer
   transformControls?: TransformControls
 
-  constructor(container?: HTMLDivElement) {
+  constructor(container?: HTMLElement) {
     if (instance) {
       return instance
     }

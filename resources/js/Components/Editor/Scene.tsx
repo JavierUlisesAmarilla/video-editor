@@ -2,25 +2,13 @@ import {useZustand} from "@/store/useZustand"
 import {Page} from "@/types"
 import axios from "axios"
 import classNames from "classnames"
-import {useEffect, useRef} from "react"
 import {BiRedo, BiSolidBrush, BiUndo} from "react-icons/bi"
 import {BsPlusSquare, BsTrash} from "react-icons/bs"
 import {toast} from "react-toast"
-import {Experience} from "./Experience/Experience"
 
 export const Scene = () => {
-  const containerRef = useRef<HTMLDivElement>(null)
   const { pageArr, selPageId, setSelPageId, addPage, removePage } =
     useZustand()
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = ""
-        new Experience(containerRef.current)
-      }
-    }, 300)
-  }, [])
 
   return (
     <div className="w-full h-full flex flex-col text-sm">
@@ -78,7 +66,7 @@ export const Scene = () => {
           </div>
         </div>
       </div>
-      <div ref={containerRef} className="flex-1 w-full"/>
+      <div className="flex-1 w-full" id="container"/>
     </div>
   )
 }
