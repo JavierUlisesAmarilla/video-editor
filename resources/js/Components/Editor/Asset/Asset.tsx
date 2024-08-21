@@ -16,32 +16,32 @@ const assets: {
   [key: string]: { icon: ReactNode; title: string; content?: ReactNode };
 } = {
   text: {
-    icon: <BsTextareaT className="text-5xl"/>,
+    icon: <BsTextareaT className="text-3xl"/>,
     title: "Text",
     content: <Text/>,
   },
   multimedia: {
-    icon: <BsTv className="text-5xl"/>,
-    title: "Multimedia",
+    icon: <BsTv className="text-3xl"/>,
+    title: "Media",
     content: <Multimedia/>,
   },
   model: {
-    icon: <BiCube className="text-5xl"/>,
+    icon: <BiCube className="text-3xl"/>,
     title: "Model",
     content: <Model/>,
   },
   audio: {
-    icon: <BsOpticalAudio className="text-5xl"/>,
+    icon: <BsOpticalAudio className="text-3xl"/>,
     title: "Audio",
     content: <Audio/>,
   },
   effect: {
-    icon: <GiCarambola className="text-5xl"/>,
+    icon: <GiCarambola className="text-3xl"/>,
     title: "Effect",
     content: <Effect/>,
   },
   template: {
-    icon: <HiOutlineTemplate className="text-5xl"/>,
+    icon: <HiOutlineTemplate className="text-3xl"/>,
     title: "Template",
     content: <Template/>,
   },
@@ -51,12 +51,12 @@ export const Asset = () => {
   const { selAssetId, setSelAssetId } = useZustand()
 
   return (
-    <div className="w-full h-full flex text-sm">
+    <div className="w-full h-full flex text-xs">
       <div className="h-full flex flex-col items-center p-2 bg-black gap-2 overflow-auto text-white">
         {Object.keys(assets).map((k) => (
           <div
             className={classNames(
-              "flex flex-col items-center p-1 cursor-pointer bg-opacity-50 rounded w-full",
+              "flex flex-col items-center p-2 cursor-pointer bg-opacity-50 rounded w-full",
               { "bg-gray-500": k === selAssetId }
             )}
             key={k}
@@ -67,7 +67,7 @@ export const Asset = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1 overflow-auto p-4">
+      <div className="flex-1 overflow-auto p-2">
         {selAssetId && assets[selAssetId].content}
       </div>
     </div>

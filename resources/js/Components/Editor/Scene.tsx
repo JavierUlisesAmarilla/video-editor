@@ -13,25 +13,25 @@ export const Scene = () => {
 
   return (
     <div className="w-full h-full text-sm relative">
-      <div className="absolute w-full flex justify-between items-center p-1 z-10 bg-white">
-        <div className="flex gap-1 items-center">
-          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer">
+      <div className="absolute w-full flex justify-between items-center p-2 z-10 bg-white">
+        <div className="flex gap-2 items-center">
+          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500">
             <BiUndo className="text-base"/>
             <div>Undo</div>
           </div>
-          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer">
+          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500">
             <BiRedo className="text-base"/>
             <div>Redo</div>
           </div>
-          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer">
+          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500">
             <BiSolidBrush className="text-base"/>
             <div>Background</div>
           </div>
         </div>
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-2 items-center">
           <div
             className={classNames(
-              "flex gap-1 items-center p-1 border rounded cursor-pointer",
+              "flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500",
               { "text-gray-500": !selPageId }
             )}
             onClick={async () => {
@@ -52,7 +52,7 @@ export const Scene = () => {
             <div>Remove Page</div>
           </div>
           <div
-            className="flex gap-1 items-center p-1 border rounded cursor-pointer"
+            className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500"
             onClick={async () => {
               const newPage: Page = {}
               const res = await axios.post("/savePage", newPage)

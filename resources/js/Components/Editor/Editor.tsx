@@ -16,7 +16,7 @@ export const Editor = () => {
           <Asset/>
         </div>
       </div>
-      <div className="h-1/4 p-2 border border-gray-500">Timeline</div>
+      <div className="h-1/4 p-2 border border-gray-500">Coming soon...</div>
     </div>
   )
 }
