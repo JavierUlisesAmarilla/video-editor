@@ -90,7 +90,7 @@ const modelArr: { type: string; imageSrc: string; modelSrc: string }[][] =
 
 export const ThreeD = () => {
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-4">
       {modelArr.map((arr, i1) => (
         <div className="flex gap-4" key={i1}>
           {arr.map((v, i2) => (

@@ -56,14 +56,22 @@ const multimediaArr: { type: string; src: string }[][] = toChunk(
 
 export const Multimedia = () => {
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-4">
       {multimediaArr.map((arr, i1) => (
         <div className="flex gap-4" key={i1}>
           {arr.map((v, i2) => (
-            <div key={i2}>
+            <div className="cursor-pointer" key={i2}>
               {v.type === "img" && <img className="w-32 h-20" src={v.src}/>}
               {v.type === "video" && (
-                <video className="w-32 h-20" src={v.src} autoPlay loop/>
+                <video
+                  className="w-32 h-20"
+                  src={v.src}
+                  loop
+                  // @ts-expect-error -- TODO
+                  onMouseOver={(e) => e.target.play()}
+                  // @ts-expect-error -- TODO
+                  onMouseOut={(e) => e.target.pause()}
+                />
               )}
             </div>
           ))}
