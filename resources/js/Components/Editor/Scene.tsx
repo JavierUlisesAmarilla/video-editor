@@ -13,7 +13,7 @@ export const Scene = () => {
 
   return (
     <div className="w-full h-full text-sm relative">
-      <div className="absolute w-full flex justify-between items-center p-1">
+      <div className="absolute w-full flex justify-between items-center p-1 z-10 bg-white">
         <div className="flex gap-1 items-center">
           <div className="flex gap-1 items-center p-1 border rounded cursor-pointer">
             <BiUndo className="text-base"/>
