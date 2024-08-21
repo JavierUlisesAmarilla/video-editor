@@ -5,6 +5,7 @@ import classNames from "classnames"
 import {BiRedo, BiSolidBrush, BiUndo} from "react-icons/bi"
 import {BsPlusSquare, BsTrash} from "react-icons/bs"
 import {toast} from "react-toast"
+import {R3fScene} from "./R3fScene/R3fScene"
 
 export const Scene = () => {
   const { pageArr, selPageId, setSelPageId, addPage, removePage } =
@@ -66,7 +67,7 @@ export const Scene = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-full"/>
+      <R3fScene/>
     </div>
   )
 }

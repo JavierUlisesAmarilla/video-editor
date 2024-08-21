@@ -71,9 +71,6 @@ export const Editor = () => {
           ],
         },
       }}
-      onRenderTab={() => {
-        // TODO
-      }}
     />
   )
 }

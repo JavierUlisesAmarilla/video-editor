@@ -98,7 +98,7 @@ export class PureThree {
       controls.enabled = !event.value
     })
     this.transformControls.addEventListener("objectChange", () => {
-      console.log("test: objectChange")
+      // TODO
     })
     document.addEventListener("pointerdown", (e) => this.onPointerDown(e))
     document.addEventListener("pointerup", (e) => this.onPointerUp(e))
