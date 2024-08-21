@@ -1,5 +1,4 @@
 import {Editor} from "@/Components/Editor/Editor"
-import {Experience} from "@/Components/Editor/Experience/Experience"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import {useZustand} from "@/store/useZustand"
 import {PageProps} from "@/types"
@@ -8,8 +7,6 @@ import axios from "axios"
 import {useEffect} from "react"
 import {ToastContainer} from "react-toast"
 
-export let experience: Experience
-
 export default function Dashboard({ auth }: PageProps) {
   const { setPageArr } = useZustand()
 
@@ -17,13 +14,6 @@ export default function Dashboard({ auth }: PageProps) {
     axios.get("/getPages").then((res) => {
       setPageArr(res.data.pages)
     })
-
-    setTimeout(() => {
-      const container = document.getElementById("container")
-      if (container) {
-        experience = new Experience(container)
-      }
-    }, 500)
   }, [])
 
   return (

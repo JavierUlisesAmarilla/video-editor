@@ -1,5 +1,4 @@
 import {CustomFlexLayout} from "@/Layouts/CustomFlexLayout"
-import {experience} from "@/Pages/Dashboard"
 import {Asset} from "./Asset/Asset"
 import {Scene} from "./Scene"
 import {Slide} from "./Slide"
@@ -73,9 +72,7 @@ export const Editor = () => {
         },
       }}
       onRenderTab={() => {
-        setTimeout(() => {
-          experience?.onResize()
-        }, 10)
+        // TODO
       }}
     />
   )

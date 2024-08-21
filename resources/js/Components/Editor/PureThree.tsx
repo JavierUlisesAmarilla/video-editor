@@ -2,14 +2,14 @@ import * as THREE from "three"
 import {OrbitControls} from "three/addons/controls/OrbitControls.js"
 import {TransformControls} from "three/addons/controls/TransformControls.js"
 
-let instance: Experience
+let instance: PureThree
 const raycaster = new THREE.Raycaster()
 const raycasterObjectArr: THREE.Object3D[] = []
 const pointer = new THREE.Vector2()
 const onUpPosition = new THREE.Vector2()
 const onDownPosition = new THREE.Vector2()
 
-export class Experience {
+export class PureThree {
   container?: HTMLElement
   scene?: THREE.Scene
   camera?: THREE.PerspectiveCamera
@@ -20,7 +20,7 @@ export class Experience {
     if (instance) {
       return instance
     }
-    // eslint-disable-next-line @typescript-eslint/no-this-alias -- TODO
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     instance = this
     if (!container) {
       return instance
