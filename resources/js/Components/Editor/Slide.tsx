@@ -9,7 +9,7 @@ export const Slide = () => {
   const { pageArr, addPage, selPageId, setSelPageId } = useZustand()
 
   return (
-    <div className="text-sm flex flex-col items-center gap-1 p-1">
+    <div className="w-full h-full text-sm flex flex-col items-center gap-1 p-1 overflow-auto">
       {pageArr.map((page, idx) => (
         <div
           className={classNames(
