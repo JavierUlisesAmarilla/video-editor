@@ -36,6 +36,8 @@ const gradientsArr: string[][] = toChunk(
 export const Background = () => {
   const { pageArr, selPageId, setSelPage } = useZustand()
   const selPage = pageArr.find((v) => v.id === selPageId)
+  const bgColor =
+    selPage?.background?.substring(0, 1) === "#" ? selPage.background : ""
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
 
   return (
@@ -43,12 +45,12 @@ export const Background = () => {
       <div className="flex gap-2">
         <div
           className="w-12 h-12 rounded-full cursor-pointer border border-gray-500"
-          style={{ backgroundColor: selPage?.background }}
+          style={{ backgroundColor: bgColor }}
           onClick={() => setIsHexColorPickerVisible(!isHexColorPickerVisible)}
         />
         {isHexColorPickerVisible && (
           <HexColorPicker
-            color={selPage?.background || ""}
+            color={bgColor}
             onChange={(v) => {
               if (selPage) {
                 selPage.background = v
