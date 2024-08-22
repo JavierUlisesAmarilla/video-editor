@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/savePage', [EditorController::class, 'savePage']);
-    Route::get('/getPages', [EditorController::class, 'getPages']);
+    Route::get('/getAll', [EditorController::class, 'getAll']);
     Route::delete('/deletePage/{id}', [EditorController::class, 'deletePage']);
 });
 

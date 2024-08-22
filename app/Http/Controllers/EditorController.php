@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\PageObject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EditorController extends Controller
 {
+    public function getAll(): JsonResponse
+    {
+        return response()->json([
+            'pages' => Page::get(),
+            'pageObjects' => PageObject::get(),
+        ]);
+    }
+
     public function savePage(Request $request): JsonResponse
     {
         $row = Page::where('id', $request->id)->first();
@@ -19,11 +28,6 @@ class EditorController extends Controller
         }
         $row->save();
         return response()->json($row);
-    }
-
-    public function getPages(): JsonResponse
-    {
-        return response()->json(['pages' => Page::get()]);
     }
 
     public function deletePage(Request $request): bool

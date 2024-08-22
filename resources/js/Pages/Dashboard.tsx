@@ -11,7 +11,7 @@ export default function Dashboard({ auth }: PageProps) {
   const { setPageArr, setSelPageId } = useZustand()
 
   useEffect(() => {
-    axios.get("/getPages").then((res) => {
+    axios.get("/getAll").then((res) => {
       const pageArr = res.data.pages
 
       if (pageArr.length) {
