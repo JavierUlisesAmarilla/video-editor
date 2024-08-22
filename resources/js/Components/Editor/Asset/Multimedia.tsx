@@ -1,3 +1,8 @@
+import {useZustand} from "@/store/useZustand"
+import {PageObject} from "@/types"
+import axios from "axios"
+import {toast} from "react-toast"
+
 const multimediaArr: { type: string; src: string }[] = [
   {
     type: "img",
@@ -50,6 +55,8 @@ const multimediaArr: { type: string; src: string }[] = [
 ]
 
 export const Multimedia = () => {
+  const { selPageId, setPageObject, setSelPageObjectId } = useZustand()
+
   return (
     <div className="flex gap-2 flex-wrap">
       {multimediaArr.map((v, i) => (
@@ -64,6 +71,18 @@ export const Multimedia = () => {
               onMouseOver={(e) => e.target.play()}
               // @ts-expect-error -- TODO
               onMouseOut={(e) => e.target.pause()}
+              onClick={async () => {
+                const newPageObject: PageObject = {
+                  page_id: selPageId,
+                  type: "video",
+                  url: v.src,
+                }
+                const res = await axios.post("/savePageObject", newPageObject)
+                toast("Video created.")
+                newPageObject.id = res.data.id
+                setPageObject(newPageObject)
+                setSelPageObjectId(res.data.id)
+              }}
             />
           )}
         </div>

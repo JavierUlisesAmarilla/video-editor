@@ -6,6 +6,7 @@ import {Fragment, useEffect} from "react"
 import {Color} from "three"
 import {R3fHtml} from "./R3fHtml"
 import {R3fModel} from "./R3fModel"
+import {R3fVideo} from "./R3fVideo"
 
 const bgColor = new Color()
 
@@ -44,6 +45,7 @@ export const R3fWorld = () => {
                     <div className="p-1 bg-yellow-500 rounded">{v.url}</div>
                   </R3fHtml>
                 )}
+                {v.type === "video" && <R3fVideo pageObject={v}/>}
               </Fragment>
             )
         )}

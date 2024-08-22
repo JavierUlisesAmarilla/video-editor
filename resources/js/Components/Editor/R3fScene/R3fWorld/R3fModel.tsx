@@ -3,7 +3,6 @@ import {useZustand} from "@/store/useZustand"
 import {PageObject} from "@/types"
 import {TransformControls} from "@react-three/drei"
 import {useFrame} from "@react-three/fiber"
-import {useGesture} from "@use-gesture/react"
 import axios from "axios"
 import {AnimatePresence} from "framer-motion"
 import {motion} from "framer-motion-3d"
@@ -35,14 +34,6 @@ export const R3fModel = ({
     useCloneGltf
   )
   const transformControlsEnabled = pageObject.id === selPageObjectId
-
-  const bind = useGesture({
-    onClick: () => {
-      if (pageObject.id) {
-        setSelPageObjectId(pageObject.id)
-      }
-    },
-  })
 
   useEffect(() => {
     if (actions && showModelAnimation) {
@@ -117,7 +108,11 @@ export const R3fModel = ({
               exit={{
                 scale: useMotion ? 0 : 1,
               }}
-              {...bind()}
+              onClick={() => {
+                if (pageObject.id) {
+                  setSelPageObjectId(pageObject.id)
+                }
+              }}
             />
             {children}
             {showAxesHelper && <axesHelper args={[AXES_LENGTH]}/>}

@@ -1,19 +1,15 @@
+/* eslint-disable react/no-unknown-property */
 import {useZustand} from "@/store/useZustand"
 import {PageObject} from "@/types"
-import {Html, TransformControls} from "@react-three/drei"
+import {TransformControls, meshBounds, useVideoTexture} from "@react-three/drei"
 import axios from "axios"
-import {ReactNode} from "react"
+import {DoubleSide} from "three"
 
-export const R3fHtml = ({
-  pageObject,
-  children,
-}: {
-  pageObject: PageObject;
-  children: ReactNode;
-}) => {
+export const R3fVideo = ({ pageObject }: { pageObject: PageObject }) => {
   const { selPageObjectId, setSelPageObjectId, setPageObject, transformMode } =
     useZustand()
   const transformControlsEnabled = pageObject.id === selPageObjectId
+  const texture = useVideoTexture(pageObject.url, { start: true, loop: true })
 
   return (
     <TransformControls
@@ -45,18 +41,17 @@ export const R3fHtml = ({
           .then(() => setPageObject(pageObject))
       }}
     >
-      <Html className="relative" transform>
-        <div
-          className="relative"
-          onClick={() => {
-            if (pageObject.id) {
-              setSelPageObjectId(pageObject.id)
-            }
-          }}
-        >
-          {children}
-        </div>
-      </Html>
+      <mesh
+        raycast={meshBounds}
+        onClick={() => {
+          if (pageObject.id) {
+            setSelPageObjectId(pageObject.id)
+          }
+        }}
+      >
+        <planeGeometry args={[8, 5]}/>
+        <meshBasicMaterial map={texture} toneMapped={false} side={DoubleSide}/>
+      </mesh>
     </TransformControls>
   )
 }
