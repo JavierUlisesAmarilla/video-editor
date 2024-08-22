@@ -2,7 +2,7 @@ import {useZustand} from "@/store/useZustand"
 import {Page} from "@/types"
 import axios from "axios"
 import classNames from "classnames"
-import {BiRedo, BiSolidBrush, BiUndo} from "react-icons/bi"
+import {BiRedo, BiUndo} from "react-icons/bi"
 import {BsPlusSquare, BsTrash} from "react-icons/bs"
 import {toast} from "react-toast"
 import {R3fScene} from "./R3fScene/R3fScene"
@@ -22,10 +22,6 @@ export const Scene = () => {
           <div className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500">
             <BiRedo className="text-base"/>
             <div>Redo</div>
-          </div>
-          <div className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500">
-            <BiSolidBrush className="text-base"/>
-            <div>Background</div>
           </div>
         </div>
         <div className="flex gap-2 items-center">

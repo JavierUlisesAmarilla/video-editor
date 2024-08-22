@@ -1,8 +1,8 @@
 import {useZustand} from "@/store/useZustand"
 import classNames from "classnames"
 import {ReactNode} from "react"
-import {BiCube} from "react-icons/bi"
-import {BsBack, BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
+import {BiCube, BiSolidBrush} from "react-icons/bi"
+import {BsOpticalAudio, BsTextareaT, BsTv} from "react-icons/bs"
 import {GiCarambola} from "react-icons/gi"
 import {HiOutlineTemplate} from "react-icons/hi"
 import {Audio} from "./Audio"
@@ -17,7 +17,7 @@ const assets: {
   [key: string]: { icon: ReactNode; title: string; content?: ReactNode };
 } = {
   background: {
-    icon: <BsBack className="text-3xl"/>,
+    icon: <BiSolidBrush className="text-3xl"/>,
     title: "Background",
     content: <Background/>,
   },
