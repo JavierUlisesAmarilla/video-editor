@@ -11,16 +11,6 @@ import {ReactNode, useEffect} from "react"
 import {useCustomGltf} from "../../../../hooks/useCustomGltf"
 import {AXES_LENGTH} from "../../../../utils/constants"
 
-export type R3fModelType = {
-  pageObject: PageObject;
-  children?: ReactNode;
-  visible?: boolean;
-  showModelAnimation?: boolean;
-  showAxesHelper?: boolean;
-  useCloneGltf?: boolean;
-  useMotion?: boolean;
-};
-
 export const R3fModel = ({
   pageObject,
   children,
@@ -29,7 +19,15 @@ export const R3fModel = ({
   showAxesHelper = false,
   useCloneGltf = false,
   useMotion = false,
-}: R3fModelType) => {
+}: {
+  pageObject: PageObject;
+  children?: ReactNode;
+  visible?: boolean;
+  showModelAnimation?: boolean;
+  showAxesHelper?: boolean;
+  useCloneGltf?: boolean;
+  useMotion?: boolean;
+}) => {
   const { selPageObjectId, setSelPageObjectId, setPageObject } = useZustand()
   const { modelScene, mixer, actions } = useCustomGltf(
     pageObject.url,
@@ -80,10 +78,12 @@ export const R3fModel = ({
           ]}
           scale={[pageObject.sx || 1, pageObject.sy || 1, pageObject.sz || 1]}
           visible={visible}
-          onPointerUp={(e) => {
-            const position = e.eventObject.position
-            const rotation = e.eventObject.rotation
-            const scale = e.eventObject.scale
+          onMouseUp={(e) => {
+            // @ts-expect-error -- TODO
+            const object = e?.target.object
+            const position = object.position
+            const rotation = object.rotation
+            const scale = object.scale
             pageObject.px = position.x
             pageObject.py = position.y
             pageObject.pz = position.z

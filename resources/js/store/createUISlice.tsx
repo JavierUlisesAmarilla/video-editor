@@ -18,6 +18,9 @@ export type UISlice = {
 
   selAssetId: string;
   setSelAssetId: (selAssetId: string) => void;
+
+  isSaving: boolean;
+  setIsSaving: (isSaving: boolean) => void;
 };
 
 export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
@@ -57,5 +60,8 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
 
     selAssetId: "background",
     setSelAssetId: (selAssetId) => set(() => ({ selAssetId })),
+
+    isSaving: false,
+    setIsSaving: (isSaving) => set(() => ({ isSaving })),
   }
 }

@@ -1,5 +1,8 @@
 import InputLabel from "@/Components/InputLabel"
 import TextInput from "@/Components/TextInput"
+import {useZustand} from "@/store/useZustand"
+import {PageObject} from "@/types"
+import axios from "axios"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
 import Switch from "react-custom-checkbox/switch"
@@ -16,8 +19,22 @@ import {
   BsTextRight,
 } from "react-icons/bs"
 import Select from "react-select"
+import {toast} from "react-toast"
 
 export const Text = () => {
+  const {
+    selPageObjectId,
+    setSelPageObjectId,
+    pageObjectArr,
+    setPageObject,
+    selPageId,
+    isSaving,
+    setIsSaving,
+  } = useZustand()
+  const selPageObject = pageObjectArr.find((v) => v.id === selPageObjectId)
+  const textValue =
+    selPageObject?.type === "text" ? selPageObject.url || "" : ""
+
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
   const [textColor, setTextColor] = useState("#000000")
   const [isTransparent, setIsTransparent] = useState(false)
@@ -31,8 +48,29 @@ export const Text = () => {
         <TextInput
           className="mt-1 block w-full"
           id="text"
-          // value={data.name}
-          // onChange={(e) => setData('name', e.target.value)}
+          value={textValue}
+          onChange={async (e) => {
+            if (selPageObject?.type === "text") {
+              if (!isSaving) {
+                selPageObject.url = e.target.value
+                axios.post("/savePageObject", selPageObject)
+                setPageObject(selPageObject)
+              }
+            } else if (selPageId) {
+              setIsSaving(true)
+              const newPageObject: PageObject = {
+                page_id: selPageId,
+                type: "text",
+                url: e.target.value,
+              }
+              const res = await axios.post("/savePageObject", newPageObject)
+              toast("Text created.")
+              newPageObject.id = res.data.id
+              setPageObject(newPageObject)
+              setSelPageObjectId(res.data.id)
+              setIsSaving(false)
+            }
+          }}
         />
       </div>
       <div className="flex gap-4">

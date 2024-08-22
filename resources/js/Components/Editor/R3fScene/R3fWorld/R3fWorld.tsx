@@ -4,6 +4,7 @@ import {AXES_LENGTH, SHOW_AXES_HELPER, loaders} from "@/utils/constants"
 import {useThree} from "@react-three/fiber"
 import {Fragment, useEffect} from "react"
 import {Color} from "three"
+import {R3fHtml} from "./R3fHtml"
 import {R3fModel} from "./R3fModel"
 
 const bgColor = new Color()
@@ -38,6 +39,11 @@ export const R3fWorld = () => {
             v.url && (
               <Fragment key={i}>
                 {v.type === "glb" && <R3fModel pageObject={v} useCloneGltf/>}
+                {v.type === "text" && (
+                  <R3fHtml pageObject={v}>
+                    <div className="p-1 bg-yellow-500 rounded">{v.url}</div>
+                  </R3fHtml>
+                )}
               </Fragment>
             )
         )}
