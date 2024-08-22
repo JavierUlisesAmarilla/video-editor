@@ -161,7 +161,7 @@ const modelArr: {
 ]
 
 export const Model = () => {
-  const { selPageId, setPageObject } = useZustand()
+  const { selPageId, setPageObject, setSelPageObjectId } = useZustand()
 
   return (
     <div className="flex gap-2 flex-wrap">
@@ -209,6 +209,7 @@ export const Model = () => {
             toast("Model created.")
             newPageObject.id = res.data.id
             setPageObject(newPageObject)
+            setSelPageObjectId(res.data.id)
           }}
         />
       ))}
