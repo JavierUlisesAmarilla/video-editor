@@ -1,6 +1,7 @@
 import {useZustand} from "@/store/useZustand"
 import {toChunk} from "@/utils/common"
 import axios from "axios"
+import classNames from "classnames"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
 
@@ -65,9 +66,20 @@ export const Background = () => {
         <div className="flex gap-2" key={i1}>
           {arr.map((v, i2) => (
             <img
-              className="w-32 h-20 border rounded cursor-pointer border-gray-500"
+              className={classNames(
+                "w-32 h-20 border rounded cursor-pointer",
+                { "border-gray-500": selPage?.background !== v },
+                { "border-red-500": selPage?.background === v }
+              )}
               key={i2}
               src={v}
+              onClick={() => {
+                if (selPage) {
+                  selPage.background = v
+                  axios.post("/savePage", selPage)
+                  setSelPage(selPage)
+                }
+              }}
             />
           ))}
         </div>
