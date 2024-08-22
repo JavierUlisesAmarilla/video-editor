@@ -37,7 +37,7 @@ export const R3fWorld = () => {
           (v, i) =>
             v.url && (
               <Fragment key={i}>
-                {v.type === "glb" && <R3fModel pageObject={v}/>}
+                {v.type === "glb" && <R3fModel pageObject={v} useCloneGltf/>}
               </Fragment>
             )
         )}

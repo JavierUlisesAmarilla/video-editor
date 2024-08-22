@@ -24,6 +24,9 @@ export interface PageObject {
     sx?: number
     sy?: number
     sz?: number
+    ox?: number
+    oy?: number
+    oz?: number
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

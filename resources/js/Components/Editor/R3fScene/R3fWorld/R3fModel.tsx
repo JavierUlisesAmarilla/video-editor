@@ -25,7 +25,7 @@ export const R3fModel = ({
   pageObject,
   children,
   visible = true,
-  showModelAnimation = true,
+  showModelAnimation = false,
   showAxesHelper = false,
   useCloneGltf = false,
   useMotion = false,
@@ -98,7 +98,13 @@ export const R3fModel = ({
               .then(() => setPageObject(pageObject))
           }}
         >
-          <group>
+          <group
+            position={[
+              pageObject.ox || 0,
+              pageObject.oy || 0,
+              pageObject.oz || 0,
+            ]}
+          >
             <motion.primitive
               object={modelScene}
               initial={{
