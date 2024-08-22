@@ -81,6 +81,32 @@ CREATE TABLE `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `page_objects`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `page_objects` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `page_id` bigint(20) unsigned DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `px` bigint(20) DEFAULT NULL,
+  `py` bigint(20) DEFAULT NULL,
+  `pz` bigint(20) DEFAULT NULL,
+  `rx` bigint(20) DEFAULT NULL,
+  `ry` bigint(20) DEFAULT NULL,
+  `rz` bigint(20) DEFAULT NULL,
+  `sx` bigint(20) DEFAULT NULL,
+  `sy` bigint(20) DEFAULT NULL,
+  `sz` bigint(20) DEFAULT NULL,
+  `t_start` timestamp NULL DEFAULT NULL,
+  `t_end` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `page_objects_ibfk_1` (`page_id`),
+  CONSTRAINT `page_objects_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

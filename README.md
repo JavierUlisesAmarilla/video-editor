@@ -1,5 +1,7 @@
 ## Setup
 
+- Run MySQL server
+- Create `laravel` database if not exists
 - php artisan migrate
 - php artisan db:seed
 - php artisan storage:link
@@ -7,7 +9,6 @@
 
 ## Run
 
-- Run MySQL server
 - Open new command
 - npm run dev
 - Open new command
