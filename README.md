@@ -7,6 +7,7 @@
 
 ## Run
 
+- Run MySQL server
 - Open new command
 - npm run dev
 - Open new command
