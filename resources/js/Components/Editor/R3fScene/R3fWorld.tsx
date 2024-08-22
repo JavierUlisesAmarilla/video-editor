@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unknown-property */
+import {Model} from "@/Components/Utils/Model"
 import {useZustand} from "@/store/useZustand"
 import {AXES_LENGTH, SHOW_AXES_HELPER, loaders} from "@/utils/constants"
 import {useThree} from "@react-three/fiber"
-import {useEffect} from "react"
+import {Fragment, useEffect} from "react"
 import {Color} from "three"
 
 const bgColor = new Color()
 
 export const R3fWorld = () => {
-  const { pageArr, selPageId } = useZustand()
+  const { pageArr, selPageId, pageObjectArr } = useZustand()
   const { scene } = useThree()
 
   useEffect(() => {
@@ -28,5 +29,19 @@ export const R3fWorld = () => {
     }
   }, [pageArr, selPageId])
 
-  return <>{SHOW_AXES_HELPER && <axesHelper args={[AXES_LENGTH]}/>}</>
+  return (
+    <>
+      {pageObjectArr
+        .filter((v) => v.page_id === selPageId)
+        .map(
+          (v, i) =>
+            v.url && (
+              <Fragment key={i}>
+                {v.type === "glb" && <Model modelPath={v.url}/>}
+              </Fragment>
+            )
+        )}
+      {SHOW_AXES_HELPER && <axesHelper args={[AXES_LENGTH]}/>}
+    </>
+  )
 }
