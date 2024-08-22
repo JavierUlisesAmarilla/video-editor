@@ -14,8 +14,10 @@ export const Slide = () => {
         <div
           className={classNames(
             "border w-full p-2 relative rounded cursor-pointer",
-            { "border-gray-500": page.id !== selPageId },
-            { "border-red-500": page.id === selPageId }
+            {
+              "border-gray-500": page.id !== selPageId,
+              "border-red-500": page.id === selPageId,
+            }
           )}
           key={idx}
           onClick={() => {

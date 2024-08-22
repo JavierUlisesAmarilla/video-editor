@@ -28,7 +28,8 @@ export const R3fModel = ({
   useCloneGltf?: boolean;
   useMotion?: boolean;
 }) => {
-  const { selPageObjectId, setSelPageObjectId, setPageObject } = useZustand()
+  const { selPageObjectId, setSelPageObjectId, setPageObject, transformMode } =
+    useZustand()
   const { modelScene, mixer, actions } = useCustomGltf(
     pageObject.url,
     useCloneGltf
@@ -61,7 +62,7 @@ export const R3fModel = ({
     <AnimatePresence>
       {modelScene && (
         <TransformControls
-          mode="translate"
+          mode={transformMode}
           enabled={transformControlsEnabled}
           showX={transformControlsEnabled}
           showY={transformControlsEnabled}

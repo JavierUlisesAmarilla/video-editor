@@ -11,7 +11,7 @@ export const R3fHtml = ({
   pageObject: PageObject;
   children: ReactNode;
 }) => {
-  const { selPageObjectId, setSelPageObjectId, setPageObject } = useZustand()
+  const { selPageObjectId, setSelPageObjectId, setPageObject, transformMode } = useZustand()
   const transformControlsEnabled = pageObject.id === selPageObjectId
 
   const onSpriteClick = () => {
@@ -22,7 +22,7 @@ export const R3fHtml = ({
 
   return (
     <TransformControls
-      mode="translate"
+      mode={transformMode}
       enabled={transformControlsEnabled}
       showX={transformControlsEnabled}
       showY={transformControlsEnabled}

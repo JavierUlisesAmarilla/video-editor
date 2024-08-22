@@ -61,11 +61,10 @@ export const Background = () => {
       <div className="flex gap-2 flex-wrap">
         {gradientsArr.map((v, i) => (
           <img
-            className={classNames(
-              "w-32 h-20 border rounded cursor-pointer",
-              { "border-gray-500": selPage?.background !== v },
-              { "border-red-500": selPage?.background === v }
-            )}
+            className={classNames("w-32 h-20 border rounded cursor-pointer", {
+              "border-gray-500": selPage?.background !== v,
+              "border-red-500": selPage?.background === v,
+            })}
             key={i}
             src={v}
             onClick={() => {

@@ -21,6 +21,9 @@ export type UISlice = {
 
   isSaving: boolean;
   setIsSaving: (isSaving: boolean) => void;
+
+  transformMode: "translate" | "rotate" | "scale" | undefined;
+  setTransformMode: (transformMode: "translate" | "rotate" | "scale") => void;
 };
 
 export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
@@ -63,5 +66,8 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
 
     isSaving: false,
     setIsSaving: (isSaving) => set(() => ({ isSaving })),
+
+    transformMode: "translate",
+    setTransformMode: (transformMode) => set(() => ({ transformMode })),
   }
 }

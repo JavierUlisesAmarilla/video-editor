@@ -7,14 +7,44 @@ import {BsPlusSquare, BsTrash} from "react-icons/bs"
 import {toast} from "react-toast"
 import {R3fScene} from "./R3fScene/R3fScene"
 
+const transformModes: { [key: string]: string } = {
+  translate: "Translate",
+  rotate: "Rotate",
+  scale: "Scale",
+}
+
 export const Scene = () => {
-  const { pageArr, selPageId, setSelPageId, addPage, removePage } =
-    useZustand()
+  const {
+    pageArr,
+    selPageId,
+    setSelPageId,
+    addPage,
+    removePage,
+    transformMode,
+    setTransformMode,
+  } = useZustand()
 
   return (
     <div className="w-full h-full text-sm relative">
       <div className="absolute w-full flex justify-between items-center p-2 z-10 bg-white">
         <div className="flex gap-2 items-center">
+          {Object.keys(transformModes).map((v, i) => (
+            <div
+              className={classNames(
+                "flex gap-1 items-center p-1 border rounded cursor-pointer",
+                {
+                  "border-gray-500": transformMode !== v,
+                  "border-red-500": transformMode === v,
+                }
+              )}
+              key={i}
+              onClick={() =>
+                setTransformMode(v as "translate" | "rotate" | "scale")
+              }
+            >
+              {transformModes[v]}
+            </div>
+          ))}
           {/* <div className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500">
             <BiUndo className="text-base"/>
             <div>Undo</div>
