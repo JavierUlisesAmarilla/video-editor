@@ -1,4 +1,8 @@
+import {useZustand} from "@/store/useZustand"
+import {PageObject} from "@/types"
+import axios from "axios"
 import {BsCollectionPlay} from "react-icons/bs"
+import {toast} from "react-toast"
 
 const audioArr: { src: string; name: string }[] = [
   {
@@ -16,6 +20,8 @@ const audioArr: { src: string; name: string }[] = [
 ]
 
 export const Audio = () => {
+  const { selPageId, setPageObject, setSelPageObjectId } = useZustand()
+
   return (
     <div className="flex flex-wrap gap-2">
       {audioArr.map((v, i) => (
@@ -26,6 +32,21 @@ export const Audio = () => {
           onMouseOver={(e) => e.target.lastChild.play()}
           // @ts-expect-error -- TODO
           onMouseOut={(e) => e.target.lastChild.pause()}
+          onClick={async () => {
+            if (!selPageId) {
+              return
+            }
+            const newPageObject: PageObject = {
+              page_id: selPageId,
+              type: "audio",
+              url: v.src,
+            }
+            const res = await axios.post("/savePageObject", newPageObject)
+            toast("Audio created.")
+            newPageObject.id = res.data.id
+            setPageObject(newPageObject)
+            setSelPageObjectId(res.data.id)
+          }}
         >
           <div className="pointer-events-none">{v.name}</div>
           <BsCollectionPlay className="text-3xl pointer-events-none"/>

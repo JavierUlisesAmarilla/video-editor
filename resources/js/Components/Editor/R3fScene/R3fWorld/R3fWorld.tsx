@@ -4,6 +4,7 @@ import {AXES_LENGTH, SHOW_AXES_HELPER, loaders} from "@/utils/constants"
 import {useThree} from "@react-three/fiber"
 import {Fragment, useEffect} from "react"
 import {Color} from "three"
+import {R3fAudio} from "./R3fAudio"
 import {R3fHtml} from "./R3fHtml"
 import {R3fImage} from "./R3fImage"
 import {R3fModel} from "./R3fModel"
@@ -48,6 +49,7 @@ export const R3fWorld = () => {
                 {v.type === "image" && <R3fImage pageObject={v}/>}
                 {v.type === "video" && <R3fVideo pageObject={v}/>}
                 {v.type === "glb" && <R3fModel pageObject={v} useCloneGltf/>}
+                {v.type === "audio" && <R3fAudio pageObject={v}/>}
               </Fragment>
             )
         )}
