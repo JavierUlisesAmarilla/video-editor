@@ -8,11 +8,15 @@ import {useEffect} from "react"
 import {ToastContainer} from "react-toast"
 
 export default function Dashboard({ auth }: PageProps) {
-  const { setPageArr } = useZustand()
+  const { setPageArr, setSelPageId } = useZustand()
 
   useEffect(() => {
     axios.get("/getPages").then((res) => {
-      setPageArr(res.data.pages)
+      const pageArr = res.data.pages
+      if (pageArr.length) {
+        setPageArr(pageArr)
+        setSelPageId(pageArr[0].id)
+      }
     })
   }, [])
 
