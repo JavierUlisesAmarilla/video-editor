@@ -24,9 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('/savePage', [EditorController::class, 'savePage']);
     Route::get('/getAll', [EditorController::class, 'getAll']);
+
+    Route::post('/savePage', [EditorController::class, 'savePage']);
     Route::delete('/deletePage/{id}', [EditorController::class, 'deletePage']);
+
+    Route::post('/savePageObject', [EditorController::class, 'savePageObject']);
 });
 
 require __DIR__ . '/auth.php';

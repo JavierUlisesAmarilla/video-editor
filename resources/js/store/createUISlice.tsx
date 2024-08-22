@@ -1,4 +1,4 @@
-import {Page} from "@/types"
+import {Page, PageObject} from "@/types"
 import {ZustandSlice} from "./useZustand"
 
 export type UISlice = {
@@ -9,6 +9,10 @@ export type UISlice = {
   setSelPageId: (selPageId: number) => void;
   setSelPage: (page: Page) => void;
   removePage: (pageId: number) => void;
+
+  pageObjectArr: PageObject[];
+  setPageObjectArr: (pageObjectArr: PageObject[]) => void;
+  setPageObject: (pageObject: PageObject) => void;
 
   selAssetId: string;
   setSelAssetId: (selAssetId: string) => void;
@@ -34,6 +38,24 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
       })),
     removePage: (pageId) =>
       set(() => ({ pageArr: get().pageArr.filter((v) => v.id !== pageId) })),
+
+    pageObjectArr: [],
+    setPageObjectArr: (pageObjectArr) => set(() => ({ pageObjectArr })),
+    setPageObject: (pageObject) =>
+      set(() => {
+        const arr = get().pageObjectArr
+        const obj = arr.find((v) => v.id === pageObject.id)
+
+        if (obj) {
+          if (pageObject.page_id) {
+            obj.page_id = pageObject.page_id
+          }
+        } else {
+          arr.push(pageObject)
+        }
+
+        return { pageObjectArr: arr }
+      }),
 
     selAssetId: "background",
     setSelAssetId: (selAssetId) => set(() => ({ selAssetId })),

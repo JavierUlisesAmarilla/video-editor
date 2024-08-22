@@ -8,15 +8,20 @@ import {useEffect} from "react"
 import {ToastContainer} from "react-toast"
 
 export default function Dashboard({ auth }: PageProps) {
-  const { setPageArr, setSelPageId } = useZustand()
+  const { setPageArr, setSelPageId, setPageObjectArr } = useZustand()
 
   useEffect(() => {
     axios.get("/getAll").then((res) => {
       const pageArr = res.data.pages
+      const pageObjectArr = res.data.pageObjects
 
       if (pageArr.length) {
         setPageArr(pageArr)
         setSelPageId(pageArr[0].id)
+      }
+
+      if (pageObjectArr.length) {
+        setPageObjectArr(pageObjectArr)
       }
     })
   }, [])
