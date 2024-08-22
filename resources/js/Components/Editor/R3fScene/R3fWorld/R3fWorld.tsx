@@ -5,6 +5,7 @@ import {useThree} from "@react-three/fiber"
 import {Fragment, useEffect} from "react"
 import {Color} from "three"
 import {R3fHtml} from "./R3fHtml"
+import {R3fImage} from "./R3fImage"
 import {R3fModel} from "./R3fModel"
 import {R3fVideo} from "./R3fVideo"
 
@@ -46,6 +47,7 @@ export const R3fWorld = () => {
                   </R3fHtml>
                 )}
                 {v.type === "video" && <R3fVideo pageObject={v}/>}
+                {v.type === "image" && <R3fImage pageObject={v}/>}
               </Fragment>
             )
         )}

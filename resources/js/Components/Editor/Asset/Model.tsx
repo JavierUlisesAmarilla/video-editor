@@ -171,6 +171,9 @@ export const Model = () => {
           key={i}
           src={v.imageSrc}
           onClick={async () => {
+            if (!selPageId) {
+              return
+            }
             const newPageObject: PageObject = {
               page_id: selPageId,
               type: "glb",

@@ -61,7 +61,27 @@ export const Multimedia = () => {
     <div className="flex gap-2 flex-wrap">
       {multimediaArr.map((v, i) => (
         <div className="cursor-pointer border border-gray-500 rounded" key={i}>
-          {v.type === "img" && <img className="w-32 h-20" src={v.src}/>}
+          {v.type === "img" && (
+            <img
+              className="w-32 h-20"
+              src={v.src}
+              onClick={async () => {
+                if (!selPageId) {
+                  return
+                }
+                const newPageObject: PageObject = {
+                  page_id: selPageId,
+                  type: "image",
+                  url: v.src,
+                }
+                const res = await axios.post("/savePageObject", newPageObject)
+                toast("Image created.")
+                newPageObject.id = res.data.id
+                setPageObject(newPageObject)
+                setSelPageObjectId(res.data.id)
+              }}
+            />
+          )}
           {v.type === "video" && (
             <video
               className="w-32 h-20"
