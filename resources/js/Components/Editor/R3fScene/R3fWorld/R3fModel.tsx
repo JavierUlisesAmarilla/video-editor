@@ -1,13 +1,14 @@
 /* eslint-disable react/no-unknown-property */
+import {TransformControls} from "@react-three/drei"
 import {Euler, Vector3, useFrame} from "@react-three/fiber"
 import {useGesture} from "@use-gesture/react"
 import {AnimatePresence} from "framer-motion"
 import {motion} from "framer-motion-3d"
 import {ReactNode, useEffect} from "react"
-import {useCustomGltf} from "../../hooks/useCustomGltf"
-import {AXES_LENGTH} from "../../utils/constants"
+import {useCustomGltf} from "../../../../hooks/useCustomGltf"
+import {AXES_LENGTH} from "../../../../utils/constants"
 
-export type ModelType = {
+export type R3fModelType = {
   modelPath: string;
   children?: ReactNode;
   position?: Vector3;
@@ -20,7 +21,7 @@ export type ModelType = {
   useMotion?: boolean;
 };
 
-export const Model = ({
+export const R3fModel = ({
   modelPath,
   children,
   position,
@@ -31,13 +32,12 @@ export const Model = ({
   showAxesHelper = false,
   useCloneGltf = false,
   useMotion = false,
-}: ModelType) => {
+}: R3fModelType) => {
   const { modelScene, mixer, actions } = useCustomGltf(modelPath, useCloneGltf)
 
   const bind = useGesture({
-    onPointerDown: (state) => {
-      const { event } = state
-      console.log("test: onPointerDown: event:", event)
+    onClick: () => {
+      console.log("test: onClick")
     },
   })
 
@@ -58,28 +58,36 @@ export const Model = ({
   return (
     <AnimatePresence>
       {modelScene && (
-        <group
-          position={position || [0, 0, 0]}
-          rotation={rotation || [0, 0, 0]}
-          scale={scale || 1}
-          visible={visible}
+        <TransformControls
+          mode="translate"
+          enabled={false}
+          showX={false}
+          showY={false}
+          showZ={false}
         >
-          <motion.primitive
-            object={modelScene}
-            initial={{
-              scale: useMotion ? 0 : 1,
-            }}
-            animate={{
-              scale: 1,
-            }}
-            exit={{
-              scale: useMotion ? 0 : 1,
-            }}
-            {...bind()}
-          />
-          {children}
-          {showAxesHelper && <axesHelper args={[AXES_LENGTH]}/>}
-        </group>
+          <group
+            position={position || [0, 0, 0]}
+            rotation={rotation || [0, 0, 0]}
+            scale={scale || 1}
+            visible={visible}
+          >
+            <motion.primitive
+              object={modelScene}
+              initial={{
+                scale: useMotion ? 0 : 1,
+              }}
+              animate={{
+                scale: 1,
+              }}
+              exit={{
+                scale: useMotion ? 0 : 1,
+              }}
+              {...bind()}
+            />
+            {children}
+            {showAxesHelper && <axesHelper args={[AXES_LENGTH]}/>}
+          </group>
+        </TransformControls>
       )}
     </AnimatePresence>
   )

@@ -3,13 +3,13 @@ import {Html} from "@react-three/drei"
 import {Vector3} from "@react-three/fiber"
 import {ReactNode} from "react"
 
-export type SpriteType = {
+export type R3fSpriteType = {
   children: ReactNode;
   position?: Vector3;
   onClick?: VoidFunction;
 };
 
-export const Sprite = ({ children, position, onClick }: SpriteType) => {
+export const R3fSprite = ({ children, position, onClick }: R3fSpriteType) => {
   const onSpriteClick = () => {
     console.log("test: onSpriteClick")
     if (onClick) {

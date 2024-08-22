@@ -6,7 +6,7 @@ import {R3fCamera} from "./R3fCamera"
 import {R3fControls} from "./R3fControls"
 import {R3fLight} from "./R3fLight"
 import {R3fPerformance} from "./R3fPerformance"
-import {R3fWorld} from "./R3fWorld"
+import {R3fWorld} from "./R3fWorld/R3fWorld"
 
 export const R3fScene = () => {
   return (

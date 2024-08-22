@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unknown-property */
-import {Model} from "@/Components/Utils/Model"
 import {useZustand} from "@/store/useZustand"
 import {AXES_LENGTH, SHOW_AXES_HELPER, loaders} from "@/utils/constants"
 import {useThree} from "@react-three/fiber"
 import {Fragment, useEffect} from "react"
 import {Color} from "three"
+import {R3fModel} from "./R3fModel"
 
 const bgColor = new Color()
 
@@ -37,7 +37,7 @@ export const R3fWorld = () => {
           (v, i) =>
             v.url && (
               <Fragment key={i}>
-                {v.type === "glb" && <Model modelPath={v.url}/>}
+                {v.type === "glb" && <R3fModel modelPath={v.url}/>}
               </Fragment>
             )
         )}
