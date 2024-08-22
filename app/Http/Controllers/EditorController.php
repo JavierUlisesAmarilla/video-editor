@@ -68,6 +68,15 @@ class EditorController extends Controller
         if ($request->rz) {
             $row->rz = $request->rz;
         }
+        if ($request->sx) {
+            $row->sx = $request->sx;
+        }
+        if ($request->sy) {
+            $row->sy = $request->sy;
+        }
+        if ($request->sz) {
+            $row->sz = $request->sz;
+        }
         $row->save();
         return response()->json($row);
     }

@@ -31,9 +31,7 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
       set(() => ({
         pageArr: get().pageArr.map((v) => {
           if (v.id === get().selPageId) {
-            if (page.background) {
-              v.background = page.background
-            }
+            v = { ...v, ...page }
           }
           return v
         }),
@@ -46,16 +44,12 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
     setPageObject: (pageObject) =>
       set(() => {
         const arr = get().pageObjectArr
-        const obj = arr.find((v) => v.id === pageObject.id)
-
-        if (obj) {
-          if (pageObject.page_id) {
-            obj.page_id = pageObject.page_id
-          }
+        const idx = arr.findIndex((v) => v.id === pageObject.id)
+        if (idx > -1) {
+          arr[idx] = { ...arr[idx], ...pageObject }
         } else {
           arr.push(pageObject)
         }
-
         return { pageObjectArr: arr }
       }),
     selPageObjectId: 0,
