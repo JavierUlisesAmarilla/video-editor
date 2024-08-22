@@ -7,6 +7,7 @@ export type UISlice = {
   addPage: (page: Page) => void;
   selPageId: number;
   setSelPageId: (selPageId: number) => void;
+  setSelPage: (page: Page) => void;
   removePage: (pageId: number) => void;
 
   selAssetId: string;
@@ -20,6 +21,17 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
     addPage: (page) => set(() => ({ pageArr: [...get().pageArr, page] })),
     selPageId: 0,
     setSelPageId: (selPageId) => set(() => ({ selPageId })),
+    setSelPage: (page) =>
+      set(() => ({
+        pageArr: get().pageArr.map((v) => {
+          if (v.id === get().selPageId) {
+            if (page.background) {
+              v.background = page.background
+            }
+          }
+          return v
+        }),
+      })),
     removePage: (pageId) =>
       set(() => ({ pageArr: get().pageArr.filter((v) => v.id !== pageId) })),
 

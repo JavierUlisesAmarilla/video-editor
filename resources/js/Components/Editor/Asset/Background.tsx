@@ -1,4 +1,6 @@
+import {useZustand} from "@/store/useZustand"
 import {toChunk} from "@/utils/common"
+import axios from "axios"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
 
@@ -32,19 +34,29 @@ const gradientsArr: string[][] = toChunk(
 )
 
 export const Background = () => {
+  const { pageArr, selPageId, setSelPage } = useZustand()
+  const selPage = pageArr.find((v) => v.id === selPageId)
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
-  const [textColor, setTextColor] = useState("#000000")
 
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
         <div
-          className="w-12 h-12 rounded-full cursor-pointer"
-          style={{ backgroundColor: textColor }}
+          className="w-12 h-12 rounded-full cursor-pointer border border-gray-500"
+          style={{ backgroundColor: selPage?.background }}
           onClick={() => setIsHexColorPickerVisible(!isHexColorPickerVisible)}
         />
         {isHexColorPickerVisible && (
-          <HexColorPicker color={textColor} onChange={setTextColor}/>
+          <HexColorPicker
+            color={selPage?.background || ""}
+            onChange={(v) => {
+              if (selPage) {
+                selPage.background = v
+                axios.post("/savePage", selPage)
+                setSelPage(selPage)
+              }
+            }}
+          />
         )}
       </div>
       {gradientsArr.map((arr, i1) => (
