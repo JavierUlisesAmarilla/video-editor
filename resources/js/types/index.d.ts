@@ -12,15 +12,18 @@ export interface Page {
 
 export interface PageObject {
     id?: number
-    page_id?: number
-    type?: string
-    url?: string
+    page_id: number
+    type: string
+    url: string
     px?: number
     py?: number
     pz?: number
     rx?: number
     ry?: number
     rz?: number
+    sx?: number
+    sy?: number
+    sz?: number
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unknown-property */
+import {useZustand} from "@/store/useZustand"
+import {PageObject} from "@/types"
 import {TransformControls} from "@react-three/drei"
-import {Euler, Vector3, useFrame} from "@react-three/fiber"
+import {useFrame} from "@react-three/fiber"
 import {useGesture} from "@use-gesture/react"
 import {AnimatePresence} from "framer-motion"
 import {motion} from "framer-motion-3d"
@@ -9,11 +11,8 @@ import {useCustomGltf} from "../../../../hooks/useCustomGltf"
 import {AXES_LENGTH} from "../../../../utils/constants"
 
 export type R3fModelType = {
-  modelPath: string;
+  pageObject: PageObject;
   children?: ReactNode;
-  position?: Vector3;
-  rotation?: Euler;
-  scale?: Vector3;
   visible?: boolean;
   showModelAnimation?: boolean;
   showAxesHelper?: boolean;
@@ -22,22 +21,26 @@ export type R3fModelType = {
 };
 
 export const R3fModel = ({
-  modelPath,
+  pageObject,
   children,
-  position,
-  rotation,
-  scale,
   visible = true,
   showModelAnimation = true,
   showAxesHelper = false,
   useCloneGltf = false,
   useMotion = false,
 }: R3fModelType) => {
-  const { modelScene, mixer, actions } = useCustomGltf(modelPath, useCloneGltf)
+  const { selPageObjectId, setSelPageObjectId } = useZustand()
+  const { modelScene, mixer, actions } = useCustomGltf(
+    pageObject.url,
+    useCloneGltf
+  )
+  const transformControlsEnabled = pageObject.id === selPageObjectId
 
   const bind = useGesture({
     onClick: () => {
-      console.log("test: onClick")
+      if (pageObject.id) {
+        setSelPageObjectId(pageObject.id)
+      }
     },
   })
 
@@ -60,15 +63,23 @@ export const R3fModel = ({
       {modelScene && (
         <TransformControls
           mode="translate"
-          enabled={false}
-          showX={false}
-          showY={false}
-          showZ={false}
+          enabled={transformControlsEnabled}
+          showX={transformControlsEnabled}
+          showY={transformControlsEnabled}
+          showZ={transformControlsEnabled}
         >
           <group
-            position={position || [0, 0, 0]}
-            rotation={rotation || [0, 0, 0]}
-            scale={scale || 1}
+            position={[
+              pageObject.px || 0,
+              pageObject.py || 0,
+              pageObject.pz || 0,
+            ]}
+            rotation={[
+              pageObject.rx || 0,
+              pageObject.ry || 0,
+              pageObject.rz || 0,
+            ]}
+            scale={[pageObject.sx || 1, pageObject.sy || 1, pageObject.sz || 1]}
             visible={visible}
           >
             <motion.primitive

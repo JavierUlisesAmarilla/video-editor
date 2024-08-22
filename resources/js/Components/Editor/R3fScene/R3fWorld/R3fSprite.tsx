@@ -11,7 +11,6 @@ export type R3fSpriteType = {
 
 export const R3fSprite = ({ children, position, onClick }: R3fSpriteType) => {
   const onSpriteClick = () => {
-    console.log("test: onSpriteClick")
     if (onClick) {
       onClick()
     }

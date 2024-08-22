@@ -37,7 +37,7 @@ export const R3fWorld = () => {
           (v, i) =>
             v.url && (
               <Fragment key={i}>
-                {v.type === "glb" && <R3fModel modelPath={v.url}/>}
+                {v.type === "glb" && <R3fModel pageObject={v}/>}
               </Fragment>
             )
         )}
