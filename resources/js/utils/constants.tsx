@@ -1,4 +1,4 @@
-import {Loaders} from "@/Components/Editor/R3fScene/Loaders"
+import {Loaders} from "@/Components/Utils/Loaders"
 
 export const SHOW_AXES_HELPER = true
 export const AXES_LENGTH = 100
