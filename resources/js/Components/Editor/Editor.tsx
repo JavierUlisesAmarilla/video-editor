@@ -1,6 +1,7 @@
 import {Asset} from "./Asset/Asset"
 import {Scene} from "./Scene"
 import {Slide} from "./Slide"
+import {Timeline} from "./Timeline"
 
 export const Editor = () => {
   return (
@@ -16,7 +17,9 @@ export const Editor = () => {
           <Asset/>
         </div>
       </div>
-      <div className="h-1/4 p-2 border border-gray-500">Coming soon...</div>
+      <div className="h-1/4 p-2 border border-gray-500">
+        <Timeline/>
+      </div>
     </div>
   )
 }

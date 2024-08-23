@@ -1,5 +1,7 @@
 ## Setup
 
+- composer update
+- composer install
 - Run MySQL server
 - Create `laravel` database if not exists
 - php artisan migrate
