@@ -58,7 +58,7 @@ export const Asset = () => {
 
   return (
     <div className="w-full h-full flex text-xs">
-      <div className="h-full flex flex-col items-center p-2 bg-black gap-2 overflow-auto text-white">
+      <div className="h-full flex flex-col items-center p-1 bg-black gap-2 overflow-auto text-white">
         {Object.keys(assets).map((k) => (
           <div
             className={classNames(
