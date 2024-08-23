@@ -15,9 +15,14 @@ export const R3fHtml = ({
 
   return (
     <R3fTransformControls pageObject={pageObject}>
-      <Html className="relative" transform>
+      <Html
+        className="relative"
+        transform
+        zIndexRange={[9, 0]}
+        occlude="blending"
+      >
         <div
-          className="relative"
+          className="relative text-8xl p-8"
           onClick={() => {
             if (pageObject.id) {
               setSelPageObjectId(pageObject.id)

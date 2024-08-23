@@ -41,11 +41,7 @@ export const R3fWorld = () => {
           (v, i) =>
             v.url && (
               <Fragment key={i}>
-                {v.type === "text" && (
-                  <R3fHtml pageObject={v}>
-                    <div className="p-1 bg-yellow-500 rounded">{v.url}</div>
-                  </R3fHtml>
-                )}
+                {v.type === "text" && <R3fHtml pageObject={v}>{v.url}</R3fHtml>}
                 {v.type === "image" && <R3fImage pageObject={v}/>}
                 {v.type === "video" && <R3fVideo pageObject={v}/>}
                 {v.type === "glb" && <R3fModel pageObject={v} useCloneGltf/>}
