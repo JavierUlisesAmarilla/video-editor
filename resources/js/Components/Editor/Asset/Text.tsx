@@ -50,12 +50,14 @@ export const Text = () => {
           id="text"
           value={textValue}
           onChange={async (e) => {
+            if (isSaving) {
+              return
+            }
+
             if (selPageObject?.type === "text") {
-              if (!isSaving) {
-                selPageObject.url = e.target.value
-                axios.post("/savePageObject", selPageObject)
-                setPageObject(selPageObject)
-              }
+              selPageObject.url = e.target.value
+              axios.post("/savePageObject", selPageObject)
+              setPageObject(selPageObject)
             } else if (selPageId) {
               setIsSaving(true)
               const newPageObject: PageObject = {
