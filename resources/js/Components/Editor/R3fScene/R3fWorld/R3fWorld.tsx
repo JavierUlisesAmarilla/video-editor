@@ -5,9 +5,9 @@ import {useThree} from "@react-three/fiber"
 import {Fragment, useEffect} from "react"
 import {Color} from "three"
 import {R3fAudio} from "./R3fAudio"
-import {R3fHtml} from "./R3fHtml"
 import {R3fImage} from "./R3fImage"
 import {R3fModel} from "./R3fModel"
+import {R3fText} from "./R3fText"
 import {R3fVideo} from "./R3fVideo"
 
 const bgColor = new Color()
@@ -41,7 +41,7 @@ export const R3fWorld = () => {
           (v, i) =>
             v.url && (
               <Fragment key={i}>
-                {v.type === "text" && <R3fHtml pageObject={v}>{v.url}</R3fHtml>}
+                {v.type === "text" && <R3fText pageObject={v}/>}
                 {v.type === "image" && <R3fImage pageObject={v}/>}
                 {v.type === "video" && <R3fVideo pageObject={v}/>}
                 {v.type === "glb" && <R3fModel pageObject={v} useCloneGltf/>}

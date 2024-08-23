@@ -5,7 +5,7 @@ import {PageObject} from "@/types"
 import axios from "axios"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
-import Switch from "react-custom-checkbox/switch"
+// import Switch from "react-custom-checkbox/switch"
 import {
   BsAlignBottom,
   BsAlignCenter,
@@ -37,7 +37,7 @@ export const Text = () => {
 
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
   const [textColor, setTextColor] = useState("#000000")
-  const [isTransparent, setIsTransparent] = useState(false)
+  // const [isTransparent, setIsTransparent] = useState(false)
   const [selectedFountainOption, setSelectedFountainOption] = useState()
   const [selectedWeightOption, setSelectedWeightOption] = useState()
 
@@ -85,14 +85,14 @@ export const Text = () => {
           <HexColorPicker color={textColor} onChange={setTextColor}/>
         )}
       </div>
-      <div className="flex gap-4 items-center">
+      {/* <div className="flex gap-4 items-center">
         <div>Transparent</div>
         <Switch
           checked={isTransparent}
           // @ts-expect-error -- TODO
           onChange={setIsTransparent}
         />
-      </div>
+      </div> */}
       <div>
         <InputLabel htmlFor="fountain" value="Fountain"/>
         <Select
