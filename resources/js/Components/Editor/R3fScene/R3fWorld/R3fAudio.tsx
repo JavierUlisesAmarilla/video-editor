@@ -10,7 +10,7 @@ export const R3fAudio = ({ pageObject }: { pageObject: PageObject }) => {
   return (
     <R3fTransformControls pageObject={pageObject}>
       {modelScene && (
-        <primitive object={modelScene} position={[0, -0.5, 0]} scale={0.2}>
+        <primitive object={modelScene} position={[0, -0.5, 0]} scale={2}>
           <PositionalAudio url={pageObject.url} loop/>
         </primitive>
       )}

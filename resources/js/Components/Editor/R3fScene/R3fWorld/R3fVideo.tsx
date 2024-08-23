@@ -10,7 +10,7 @@ export const R3fVideo = ({ pageObject }: { pageObject: PageObject }) => {
   return (
     <R3fTransformControls pageObject={pageObject}>
       <mesh raycast={meshBounds}>
-        <planeGeometry args={[8, 5]}/>
+        <planeGeometry args={[40, 25]}/>
         <meshBasicMaterial map={texture} toneMapped={false} side={DoubleSide}/>
       </mesh>
     </R3fTransformControls>
