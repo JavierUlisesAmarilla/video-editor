@@ -88,7 +88,7 @@ CREATE TABLE `page_objects` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `page_id` bigint(20) unsigned DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
+  `url` text DEFAULT NULL,
   `px` double DEFAULT NULL,
   `py` double DEFAULT NULL,
   `pz` double DEFAULT NULL,

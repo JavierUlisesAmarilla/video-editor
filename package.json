@@ -10,6 +10,7 @@
         "@headlessui/react": "^2.0.0",
         "@inertiajs/react": "^1.0.0",
         "@pixiv/three-vrm": "^2.1.1",
+        "@radix-ui/react-context-menu": "^2.2.1",
         "@react-spring/three": "^9.7.1",
         "@react-three/a11y": "^3.0.0",
         "@react-three/drei": "^9.61.1",
