@@ -188,7 +188,7 @@ export const Model = () => {
             }
             const newPageObject: IPageObject = {
               page_id: selPageId,
-              type: "glb",
+              type: "model",
               url: v.modelSrc,
             }
 
