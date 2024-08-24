@@ -31,6 +31,33 @@ const textAligns: { [key: string]: ReactNode } = {
   justify: <BsTextParagraph/>,
 }
 
+const fontFamilyOptionArr = [
+  {
+    value: `ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
+    label: "Sans",
+  },
+  {
+    value: `ui-serif, Georgia, Cambria, "Times New Roman", Times, serif`,
+    label: "Serif",
+  },
+  {
+    value: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
+    label: "Mono",
+  },
+]
+
+const fontWeightOptionArr = [
+  { value: 100, label: "Thin" },
+  { value: 200, label: "Extra Light" },
+  { value: 300, label: "Light" },
+  { value: 400, label: "Normal" },
+  { value: 500, label: "Medium" },
+  { value: 600, label: "Semi Bold" },
+  { value: 700, label: "Bold" },
+  { value: 800, label: "Extra Bold" },
+  { value: 900, label: "Black" },
+]
+
 export const Text = () => {
   const {
     selPageObjectId,
@@ -46,15 +73,15 @@ export const Text = () => {
     selPageObject?.type === "text" ? JSON.parse(selPageObject.url || "{}") : {}
   const text = textInfo.text || ""
   const color = textInfo.color || "#000000"
-  const fontSize = textInfo.fontSize ?? 0
-  const lineHeight = textInfo.lineHeight ?? 0
-  const letterSpacing = textInfo.letterSpacing ?? 0
-  const textDecorationThickness = textInfo.textDecorationThickness ?? 0
+  const fontFamily = textInfo.fontFamily || ""
+  const fontWeight = textInfo.fontWeight || ""
+  const fontSize = textInfo.fontSize || ""
+  const lineHeight = textInfo.lineHeight || ""
+  const letterSpacing = textInfo.letterSpacing || ""
+  const textDecorationThickness = textInfo.textDecorationThickness || ""
   const textAlign = textInfo.textAlign
 
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
-  const [selectedFountainOption, setSelectedFountainOption] = useState()
-  const [selectedWeightOption, setSelectedWeightOption] = useState()
 
   const updateSelTextInfo = (newTextInfo: ITextInfo) => {
     if (selPageObject?.type === "text") {
@@ -138,23 +165,9 @@ export const Text = () => {
         <Select
           className="mt-1 block w-full"
           id="fontfamily"
-          value={selectedFountainOption}
-          // @ts-expect-error -- TODO
-          onChange={setSelectedFountainOption}
-          options={[
-            {
-              value: `ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
-              label: "Sans",
-            },
-            {
-              value: `ui-serif, Georgia, Cambria, "Times New Roman", Times, serif`,
-              label: "Serif",
-            },
-            {
-              value: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
-              label: "Mono",
-            },
-          ]}
+          value={fontFamilyOptionArr.find((v) => v.value === fontFamily)}
+          onChange={(v) => updateSelTextInfo({ fontFamily: v?.value })}
+          options={fontFamilyOptionArr}
           isSearchable={false}
         />
       </div>
@@ -163,20 +176,9 @@ export const Text = () => {
         <Select
           className="mt-1 block w-full"
           id="fontweight"
-          value={selectedWeightOption}
-          // @ts-expect-error -- TODO
-          onChange={setSelectedWeightOption}
-          options={[
-            { value: 100, label: "Thin" },
-            { value: 200, label: "Extra Light" },
-            { value: 300, label: "Light" },
-            { value: 400, label: "Normal" },
-            { value: 500, label: "Medium" },
-            { value: 600, label: "Semi Bold" },
-            { value: 700, label: "Bold" },
-            { value: 800, label: "Extra Bold" },
-            { value: 900, label: "Black" },
-          ]}
+          value={fontWeightOptionArr.find((v) => v.value === fontWeight)}
+          onChange={(v) => updateSelTextInfo({ fontWeight: v?.value })}
+          options={fontWeightOptionArr}
           isSearchable={false}
         />
       </div>

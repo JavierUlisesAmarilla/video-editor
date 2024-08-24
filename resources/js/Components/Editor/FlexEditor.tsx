@@ -2,6 +2,7 @@ import {CustomFlexLayout} from "@/Layouts/CustomFlexLayout"
 import {Asset} from "./Asset/Asset"
 import {Scene} from "./Scene"
 import {Slide} from "./Slide"
+import {Timeline} from "./Timeline"
 
 export const FlexEditor = () => {
   return (
@@ -10,7 +11,7 @@ export const FlexEditor = () => {
         slide: <Slide/>,
         scene: <Scene/>,
         asset: <Asset/>,
-        timeline: <div>Timeline</div>,
+        timeline: <Timeline/>,
       }}
       json={{
         global: {
