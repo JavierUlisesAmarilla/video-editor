@@ -7,6 +7,7 @@ export const R3fText = ({ pageObject }: { pageObject: IPageObject }) => {
   return (
     <R3fHtml pageObject={pageObject}>
       <div
+        className="bg-yellow-500 rounded p-8"
         style={{
           color: textInfo.color,
           fontFamily: textInfo.fontFamily,

@@ -19,7 +19,7 @@ export const R3fHtml = ({
         className="relative"
         transform
         zIndexRange={[9, 0]}
-        occlude="blending"
+        // occlude="blending"
       >
         <div
           className="relative text-8xl p-8"

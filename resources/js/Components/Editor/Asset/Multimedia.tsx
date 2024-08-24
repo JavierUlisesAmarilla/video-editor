@@ -17,15 +17,15 @@ const multimediaArr: { type: string; src: string }[] = [
     src: "/storage/image/3.jpg",
   },
   {
-    type: "image",
+    type: "gif",
     src: "/storage/image/1.gif",
   },
   {
-    type: "image",
+    type: "gif",
     src: "/storage/image/2.gif",
   },
   {
-    type: "image",
+    type: "gif",
     src: "/storage/image/3.gif",
   },
   {
@@ -61,7 +61,7 @@ export const Multimedia = () => {
     <div className="flex gap-2 flex-wrap">
       {multimediaArr.map((v, i) => (
         <div className="cursor-pointer border border-gray-500 rounded" key={i}>
-          {["image", "svg"].indexOf(v.type) > -1 && (
+          {["image", "gif", "svg"].indexOf(v.type) > -1 && (
             <img
               className="w-32 h-20"
               src={v.src}
