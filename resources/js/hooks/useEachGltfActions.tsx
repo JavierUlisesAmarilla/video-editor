@@ -1,19 +1,19 @@
+import {IAnimationActionMap} from "@/types"
 import {useEffect, useState} from "react"
 import {AnimationMixer} from "three"
 import {GLTF} from "three-stdlib"
-import {AnimationActionMap} from "../utils/types"
 
 export const useEachGltfActions = (
   mixer: AnimationMixer | undefined,
   animGltf: GLTF | undefined
 ) => {
-  const [actions, setActions] = useState<AnimationActionMap>()
+  const [actions, setActions] = useState<IAnimationActionMap>()
 
   useEffect(() => {
     if (!mixer || !animGltf) {
       return
     }
-    const newActions: AnimationActionMap = {}
+    const newActions: IAnimationActionMap = {}
     animGltf.animations.forEach((animation) => {
       newActions[animation.name] = mixer.clipAction(animation)
     })

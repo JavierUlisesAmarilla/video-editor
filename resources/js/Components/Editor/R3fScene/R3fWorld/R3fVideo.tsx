@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unknown-property */
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import {meshBounds, useVideoTexture} from "@react-three/drei"
 import {DoubleSide} from "three"
 import {R3fTransformControls} from "./R3fTransformControls"
 
-export const R3fVideo = ({ pageObject }: { pageObject: PageObject }) => {
+export const R3fVideo = ({ pageObject }: { pageObject: IPageObject }) => {
   const texture = useVideoTexture(pageObject.url, { start: true, loop: true })
 
   return (

@@ -1,3 +1,5 @@
+import {AnimationAction} from "three"
+
 export interface User {
     id: number
     name: string
@@ -5,12 +7,27 @@ export interface User {
     email_verified_at: string
 }
 
-export interface Page {
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    auth: {
+        user: User
+    }
+}
+
+export interface IAnimationActionMap {
+    [key: string]: AnimationAction
+}
+
+export interface IAnimationMixerEvent {
+    action: AnimationAction
+    loopDelta: number
+}
+
+export interface IPage {
     id?: number
     background?: string
 }
 
-export interface PageObject {
+export interface IPageObject {
     id?: number
     page_id: number
     type: string
@@ -27,10 +44,4 @@ export interface PageObject {
     ox?: number
     oy?: number
     oz?: number
-}
-
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User
-    }
 }

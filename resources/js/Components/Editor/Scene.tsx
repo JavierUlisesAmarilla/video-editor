@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {Page} from "@/types"
+import {IPage} from "@/types"
 import axios from "axios"
 import classNames from "classnames"
 // import {BiRedo, BiUndo} from "react-icons/bi"
@@ -58,7 +58,7 @@ export const Scene = () => {
           <div
             className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500"
             onClick={async () => {
-              const newPage: Page = {}
+              const newPage: IPage = {}
               const res = await axios.post("/savePage", newPage)
               toast("New page created.")
               newPage.id = res.data.id

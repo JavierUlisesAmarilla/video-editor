@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import axios from "axios"
 import {toast} from "react-toast"
 
@@ -69,7 +69,7 @@ export const Multimedia = () => {
                 if (!selPageId) {
                   return
                 }
-                const newPageObject: PageObject = {
+                const newPageObject: IPageObject = {
                   page_id: selPageId,
                   type: "image",
                   url: v.src,
@@ -92,7 +92,7 @@ export const Multimedia = () => {
               // @ts-expect-error -- TODO
               onMouseOut={(e) => e.target.pause()}
               onClick={async () => {
-                const newPageObject: PageObject = {
+                const newPageObject: IPageObject = {
                   page_id: selPageId,
                   type: "video",
                   url: v.src,

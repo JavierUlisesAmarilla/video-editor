@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unknown-property */
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import {meshBounds, useTexture} from "@react-three/drei"
 import {DoubleSide} from "three"
 import {R3fTransformControls} from "./R3fTransformControls"
 
-export const R3fImage = ({ pageObject }: { pageObject: PageObject }) => {
+export const R3fImage = ({ pageObject }: { pageObject: IPageObject }) => {
   const texture = useTexture(pageObject.url)
 
   return (

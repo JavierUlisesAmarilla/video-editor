@@ -1,6 +1,6 @@
 import {ZustandSlice} from "./useZustand"
 
-export type MouseSlice = {
+export interface MouseSlice {
   isLeftMouse: boolean;
   setIsLeftMouse: (isLeftMouse: boolean) => void;
 
@@ -9,7 +9,7 @@ export type MouseSlice = {
 
   isRightMouse: boolean;
   setIsRightMouse: (isRightMouse: boolean) => void;
-};
+}
 
 export const createMouseSlice: ZustandSlice<MouseSlice> = (set) => {
   return {

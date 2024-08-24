@@ -1,7 +1,7 @@
 import InputLabel from "@/Components/InputLabel"
 import TextInput from "@/Components/TextInput"
 import {useZustand} from "@/store/useZustand"
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import axios from "axios"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
@@ -60,7 +60,7 @@ export const Text = () => {
               setPageObject(selPageObject)
             } else if (selPageId) {
               setIsSaving(true)
-              const newPageObject: PageObject = {
+              const newPageObject: IPageObject = {
                 page_id: selPageId,
                 type: "text",
                 url: e.target.value,

@@ -1,8 +1,8 @@
+import {IAnimationActionMap} from "@/types"
 import {useGLTF} from "@react-three/drei"
 import {useEffect, useState} from "react"
 import {AnimationMixer, Object3D} from "three"
 import {clone} from "three/examples/jsm/utils/SkeletonUtils.js"
-import {AnimationActionMap} from "../utils/types"
 
 export const useCustomGltf = (
   gltfUrl: string,
@@ -10,13 +10,13 @@ export const useCustomGltf = (
 ) => {
   const [modelScene, setModelScene] = useState<Object3D>()
   const [mixer, setMixer] = useState<AnimationMixer>()
-  const [actions, setActions] = useState<AnimationActionMap>()
+  const [actions, setActions] = useState<IAnimationActionMap>()
   const gltf = useGLTF(gltfUrl)
 
   useEffect(() => {
     const newModelScene = useCloneGltf ? clone(gltf.scene) : gltf.scene
     const newMixer = new AnimationMixer(newModelScene)
-    const newActions: AnimationActionMap = {}
+    const newActions: IAnimationActionMap = {}
 
     gltf.animations.forEach((animation) => {
       newActions[animation.name] = newMixer.clipAction(animation)

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import {useFrame} from "@react-three/fiber"
 import {ReactNode, useEffect} from "react"
 import {useCustomGltf} from "../../../../hooks/useCustomGltf"
@@ -13,7 +13,7 @@ export const R3fModel = ({
   showAxesHelper = false,
   useCloneGltf = false,
 }: {
-  pageObject: PageObject;
+  pageObject: IPageObject;
   children?: ReactNode;
   showModelAnimation?: boolean;
   showAxesHelper?: boolean;

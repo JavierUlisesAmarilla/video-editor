@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import {Vector3} from "@react-three/fiber"
 import axios from "axios"
 import {toast} from "react-toast"
@@ -186,7 +186,7 @@ export const Model = () => {
             if (!selPageId) {
               return
             }
-            const newPageObject: PageObject = {
+            const newPageObject: IPageObject = {
               page_id: selPageId,
               type: "glb",
               url: v.modelSrc,

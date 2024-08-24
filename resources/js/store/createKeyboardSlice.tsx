@@ -1,6 +1,6 @@
 import {ZustandSlice} from "./useZustand"
 
-export type KeyboardSlice = {
+export interface KeyboardSlice {
   isFront: boolean;
   setIsFront: (isFront: boolean) => void;
 
@@ -21,7 +21,7 @@ export type KeyboardSlice = {
 
   isJump: boolean;
   setIsJump: (isJump: boolean) => void;
-};
+}
 
 export const createKeyboardSlice: ZustandSlice<KeyboardSlice> = (set) => {
   return {

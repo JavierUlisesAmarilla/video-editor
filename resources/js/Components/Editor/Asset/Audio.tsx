@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import axios from "axios"
 import {BsCollectionPlay} from "react-icons/bs"
 import {toast} from "react-toast"
@@ -36,7 +36,7 @@ export const Audio = () => {
             if (!selPageId) {
               return
             }
-            const newPageObject: PageObject = {
+            const newPageObject: IPageObject = {
               page_id: selPageId,
               type: "audio",
               url: v.src,

@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import {Html} from "@react-three/drei"
 import {ReactNode} from "react"
 import {R3fTransformControls} from "./R3fTransformControls"
@@ -8,7 +8,7 @@ export const R3fHtml = ({
   pageObject,
   children,
 }: {
-  pageObject: PageObject;
+  pageObject: IPageObject;
   children: ReactNode;
 }) => {
   const { setSelPageObjectId } = useZustand()

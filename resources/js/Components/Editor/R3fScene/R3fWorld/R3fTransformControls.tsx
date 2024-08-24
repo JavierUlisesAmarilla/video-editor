@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {PageObject} from "@/types"
+import {IPageObject} from "@/types"
 import {TransformControls} from "@react-three/drei"
 import axios from "axios"
 import {ReactNode} from "react"
@@ -8,7 +8,7 @@ export const R3fTransformControls = ({
   pageObject,
   children,
 }: {
-  pageObject: PageObject;
+  pageObject: IPageObject;
   children: ReactNode;
 }) => {
   const { selPageObjectId, setSelPageObjectId, setPageObject, transformMode } =

@@ -1,5 +1,5 @@
 import {useZustand} from "@/store/useZustand"
-import {Page} from "@/types"
+import {IPage} from "@/types"
 import axios from "axios"
 import classNames from "classnames"
 import {BsCardImage, BsPlusSquare} from "react-icons/bs"
@@ -33,7 +33,7 @@ export const Slide = () => {
       <div
         className="flex items-center gap-1 border p-1 cursor-pointer rounded border-gray-500"
         onClick={async () => {
-          const newPage: Page = {}
+          const newPage: IPage = {}
           const res = await axios.post("/savePage", newPage)
           toast("New page created.")
           newPage.id = res.data.id
