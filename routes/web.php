@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/deletePage/{id}', [EditorController::class, 'deletePage']);
 
     Route::post('/savePageObject', [EditorController::class, 'savePageObject']);
+    Route::delete('/deletePageObject/{id}', [EditorController::class, 'deletePageObject']);
 });
 
 require __DIR__ . '/auth.php';

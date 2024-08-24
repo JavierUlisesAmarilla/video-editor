@@ -89,4 +89,9 @@ class EditorController extends Controller
         $row->save();
         return response()->json($row);
     }
+
+    public function deletePageObject(Request $request): bool
+    {
+        return PageObject::where('id', $request->id)->delete();
+    }
 }

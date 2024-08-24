@@ -15,6 +15,7 @@ export interface UISlice {
   setPageObject: (pageObject: IPageObject) => void;
   selPageObjectId: number;
   setSelPageObjectId: (selPageObjectId: number) => void;
+  removePageObject: (pageObjectId: number) => void;
 
   selAssetId: string;
   setSelAssetId: (selAssetId: string) => void;
@@ -60,6 +61,10 @@ export const createUISlice: ZustandSlice<UISlice> = (set, get) => {
       }),
     selPageObjectId: 0,
     setSelPageObjectId: (selPageObjectId) => set(() => ({ selPageObjectId })),
+    removePageObject: (pageObjectId) =>
+      set(() => ({
+        pageObjectArr: get().pageObjectArr.filter((v) => v.id !== pageObjectId),
+      })),
 
     selAssetId: "background",
     setSelAssetId: (selAssetId) => set(() => ({ selAssetId })),
