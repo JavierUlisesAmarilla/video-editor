@@ -1,4 +1,5 @@
 import {Asset} from "./Asset/Asset"
+import {Contexify} from "./Contexify"
 import {Scene} from "./Scene"
 import {Slide} from "./Slide"
 import {Timeline} from "./Timeline"
@@ -20,6 +21,7 @@ export const Editor = () => {
       <div className="h-1/3">
         <Timeline/>
       </div>
+      <Contexify/>
     </div>
   )
 }
