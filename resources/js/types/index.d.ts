@@ -48,4 +48,12 @@ export interface IPageObject {
 
 export interface ITextInfo {
     text?: string
+    color?: string
+    fontFamily?: string
+    fontWeight?: number
+    fontSize?: number
+    lineHeight?: number
+    letterSpacing?: number
+    textDecorationThickness?: number
+    textAlign?: string
 }

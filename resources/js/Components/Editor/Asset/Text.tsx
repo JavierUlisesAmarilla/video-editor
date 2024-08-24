@@ -3,16 +3,10 @@ import TextInput from "@/Components/TextInput"
 import {useZustand} from "@/store/useZustand"
 import {IPageObject, ITextInfo} from "@/types"
 import axios from "axios"
-import {useState} from "react"
+import classNames from "classnames"
+import {ReactNode, useState} from "react"
 import {HexColorPicker} from "react-colorful"
-// import Switch from "react-custom-checkbox/switch"
 import {
-  BsAlignBottom,
-  BsAlignCenter,
-  BsAlignEnd,
-  BsAlignMiddle,
-  BsAlignStart,
-  BsAlignTop,
   BsTextCenter,
   BsTextLeft,
   BsTextParagraph,
@@ -25,12 +19,16 @@ const addTextInfoToStringify = (
   textInfo: ITextInfo,
   stringify: string
 ): string => {
-  const parse: ITextInfo = JSON.parse(stringify)
-  if (textInfo.text) {
-    parse.text = textInfo.text
-  }
+  const parse: ITextInfo = { ...JSON.parse(stringify), ...textInfo }
   stringify = JSON.stringify(parse)
   return stringify
+}
+
+const textAligns: { [key: string]: ReactNode } = {
+  left: <BsTextLeft/>,
+  center: <BsTextCenter/>,
+  right: <BsTextRight/>,
+  justify: <BsTextParagraph/>,
 }
 
 export const Text = () => {
@@ -46,12 +44,28 @@ export const Text = () => {
   const selPageObject = pageObjectArr.find((v) => v.id === selPageObjectId)
   const textInfo: ITextInfo =
     selPageObject?.type === "text" ? JSON.parse(selPageObject.url || "{}") : {}
+  const text = textInfo.text || ""
+  const color = textInfo.color || "#000000"
+  const fontSize = textInfo.fontSize ?? 0
+  const lineHeight = textInfo.lineHeight ?? 0
+  const letterSpacing = textInfo.letterSpacing ?? 0
+  const textDecorationThickness = textInfo.textDecorationThickness ?? 0
+  const textAlign = textInfo.textAlign
 
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
-  const [textColor, setTextColor] = useState("#000000")
-  // const [isTransparent, setIsTransparent] = useState(false)
   const [selectedFountainOption, setSelectedFountainOption] = useState()
   const [selectedWeightOption, setSelectedWeightOption] = useState()
+
+  const updateSelTextInfo = (newTextInfo: ITextInfo) => {
+    if (selPageObject?.type === "text") {
+      selPageObject.url = addTextInfoToStringify(
+        newTextInfo,
+        selPageObject.url
+      )
+      setPageObject(selPageObject)
+      axios.post("/savePageObject", selPageObject)
+    }
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -60,25 +74,33 @@ export const Text = () => {
         <TextInput
           className="mt-1 block w-full"
           id="text"
-          value={textInfo.text || ""}
+          value={text}
           onChange={async (e) => {
             if (isSaving) {
               return
             }
 
             if (selPageObject?.type === "text") {
-              selPageObject.url = addTextInfoToStringify(
-                { text: e.target.value },
-                selPageObject.url
-              )
-              axios.post("/savePageObject", selPageObject)
-              setPageObject(selPageObject)
+              updateSelTextInfo({ text: e.target.value })
             } else if (selPageId) {
               setIsSaving(true)
               const newPageObject: IPageObject = {
                 page_id: selPageId,
                 type: "text",
-                url: addTextInfoToStringify({ text: e.target.value }, "{}"),
+                url: addTextInfoToStringify(
+                  {
+                    text: e.target.value,
+                    color: "#000000",
+                    fontFamily: `ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
+                    fontWeight: 400,
+                    fontSize: 96,
+                    lineHeight: 1,
+                    letterSpacing: 0,
+                    textDecorationThickness: 0,
+                    textAlign: "left",
+                  },
+                  "{}"
+                ),
               }
               const res = await axios.post("/savePageObject", newPageObject)
               toast("Text created.")
@@ -93,11 +115,14 @@ export const Text = () => {
       <div className="flex gap-4">
         <div
           className="w-12 h-12 rounded-full cursor-pointer"
-          style={{ backgroundColor: textColor }}
+          style={{ backgroundColor: color }}
           onClick={() => setIsHexColorPickerVisible(!isHexColorPickerVisible)}
         />
         {isHexColorPickerVisible && (
-          <HexColorPicker color={textColor} onChange={setTextColor}/>
+          <HexColorPicker
+            color={color}
+            onChange={(v) => updateSelTextInfo({ color: v })}
+          />
         )}
       </div>
       {/* <div className="flex gap-4 items-center">
@@ -109,67 +134,119 @@ export const Text = () => {
         />
       </div> */}
       <div>
-        <InputLabel htmlFor="fountain" value="Fountain"/>
+        <InputLabel htmlFor="fontfamily" value="Font Family"/>
         <Select
           className="mt-1 block w-full"
-          id="fountain"
+          id="fontfamily"
           value={selectedFountainOption}
           // @ts-expect-error -- TODO
           onChange={setSelectedFountainOption}
           options={[
-            { value: "arial", label: "Arial" },
-            { value: "verdana", label: "Verdana" },
+            {
+              value: `ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
+              label: "Sans",
+            },
+            {
+              value: `ui-serif, Georgia, Cambria, "Times New Roman", Times, serif`,
+              label: "Serif",
+            },
+            {
+              value: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
+              label: "Mono",
+            },
           ]}
           isSearchable={false}
         />
       </div>
       <div>
-        <InputLabel htmlFor="weight" value="Weight"/>
+        <InputLabel htmlFor="fontweight" value="Font Weight"/>
         <Select
           className="mt-1 block w-full"
-          id="weight"
+          id="fontweight"
           value={selectedWeightOption}
           // @ts-expect-error -- TODO
           onChange={setSelectedWeightOption}
           options={[
-            { value: "regular", label: "Regular" },
-            { value: "italic", label: "Italic" },
-            { value: "semiBold", label: "Semi-Bold" },
-            { value: "bold", label: "Bold" },
+            { value: 100, label: "Thin" },
+            { value: 200, label: "Extra Light" },
+            { value: 300, label: "Light" },
+            { value: 400, label: "Normal" },
+            { value: 500, label: "Medium" },
+            { value: 600, label: "Semi Bold" },
+            { value: 700, label: "Bold" },
+            { value: 800, label: "Extra Bold" },
+            { value: 900, label: "Black" },
           ]}
           isSearchable={false}
         />
       </div>
       <div className="flex gap-4">
         <div className="w-full">
-          <InputLabel htmlFor="size" value="Size"/>
-          <TextInput className="mt-1 block w-full" id="size"/>
+          <InputLabel htmlFor="fontsize" value="Font Size"/>
+          <TextInput
+            className="mt-1 block w-full"
+            id="fontsize"
+            value={fontSize}
+            onChange={(e) =>
+              updateSelTextInfo({ fontSize: Number(e.target.value) })
+            }
+          />
         </div>
         <div className="w-full">
-          <InputLabel htmlFor="lineSpacing" value="Line Spacing"/>
-          <TextInput className="mt-1 block w-full" id="lineSpacing"/>
+          <InputLabel htmlFor="lineHeight" value="Line Height"/>
+          <TextInput
+            className="mt-1 block w-full"
+            id="lineHeight"
+            value={lineHeight}
+            onChange={(e) => {
+              updateSelTextInfo({ lineHeight: Number(e.target.value) })
+            }}
+          />
         </div>
       </div>
       <div className="flex gap-4">
         <div className="w-full">
-          <InputLabel htmlFor="spacing" value="Spacing"/>
-          <TextInput className="mt-1 block w-full" id="spacing"/>
+          <InputLabel htmlFor="letterSpacing" value="Letter Spacing"/>
+          <TextInput
+            className="mt-1 block w-full"
+            id="letterSpacing"
+            value={letterSpacing}
+            onChange={(e) => {
+              updateSelTextInfo({ letterSpacing: Number(e.target.value) })
+            }}
+          />
         </div>
         <div className="w-full">
           <InputLabel htmlFor="thickness" value="Thickness"/>
-          <TextInput className="mt-1 block w-full" id="thickness"/>
+          <TextInput
+            className="mt-1 block w-full"
+            id="thickness"
+            value={textDecorationThickness}
+            onChange={(e) => {
+              updateSelTextInfo({
+                textDecorationThickness: Number(e.target.value),
+              })
+            }}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div>Align</div>
+        <div>Text Align</div>
         <div className="flex gap-4">
-          <BsTextLeft className="border text-3xl rounded cursor-pointer"/>
-          <BsTextCenter className="border text-3xl rounded cursor-pointer"/>
-          <BsTextRight className="border text-3xl rounded cursor-pointer"/>
-          <BsTextParagraph className="border text-3xl rounded cursor-pointer"/>
+          {Object.keys(textAligns).map((v, i) => (
+            <div
+              className={classNames("border text-3xl rounded cursor-pointer", {
+                "border-red-500": textAlign === v,
+              })}
+              key={i}
+              onClick={() => updateSelTextInfo({ textAlign: v })}
+            >
+              {textAligns[v]}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="flex flex-col gap-1">
+      {/* <div className="flex flex-col gap-1">
         <div>Position</div>
         <div className="flex justify-between">
           <div className="flex flex-col gap-1">
@@ -203,7 +280,7 @@ export const Text = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
