@@ -1,7 +1,7 @@
 import InputLabel from "@/Components/InputLabel"
 import TextInput from "@/Components/TextInput"
 import {useZustand} from "@/store/useZustand"
-import {IPageObject} from "@/types"
+import {IPageObject, ITextInfo} from "@/types"
 import axios from "axios"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
@@ -21,6 +21,18 @@ import {
 import Select from "react-select"
 import {toast} from "react-toast"
 
+const addTextInfoToStringify = (
+  textInfo: ITextInfo,
+  stringify: string
+): string => {
+  const parse: ITextInfo = JSON.parse(stringify)
+  if (textInfo.text) {
+    parse.text = textInfo.text
+  }
+  stringify = JSON.stringify(parse)
+  return stringify
+}
+
 export const Text = () => {
   const {
     selPageObjectId,
@@ -32,8 +44,8 @@ export const Text = () => {
     setIsSaving,
   } = useZustand()
   const selPageObject = pageObjectArr.find((v) => v.id === selPageObjectId)
-  const textValue =
-    selPageObject?.type === "text" ? selPageObject.url || "" : ""
+  const textInfo: ITextInfo =
+    selPageObject?.type === "text" ? JSON.parse(selPageObject.url || "{}") : {}
 
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
   const [textColor, setTextColor] = useState("#000000")
@@ -48,14 +60,17 @@ export const Text = () => {
         <TextInput
           className="mt-1 block w-full"
           id="text"
-          value={textValue}
+          value={textInfo.text || ""}
           onChange={async (e) => {
             if (isSaving) {
               return
             }
 
             if (selPageObject?.type === "text") {
-              selPageObject.url = e.target.value
+              selPageObject.url = addTextInfoToStringify(
+                { text: e.target.value },
+                selPageObject.url
+              )
               axios.post("/savePageObject", selPageObject)
               setPageObject(selPageObject)
             } else if (selPageId) {
@@ -63,7 +78,7 @@ export const Text = () => {
               const newPageObject: IPageObject = {
                 page_id: selPageId,
                 type: "text",
-                url: e.target.value,
+                url: addTextInfoToStringify({ text: e.target.value }, "{}"),
               }
               const res = await axios.post("/savePageObject", newPageObject)
               toast("Text created.")

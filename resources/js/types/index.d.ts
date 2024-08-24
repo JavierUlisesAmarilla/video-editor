@@ -45,3 +45,7 @@ export interface IPageObject {
     oy?: number
     oz?: number
 }
+
+export interface ITextInfo {
+    text?: string
+}
