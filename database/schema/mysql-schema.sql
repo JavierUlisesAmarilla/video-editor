@@ -86,6 +86,7 @@ DROP TABLE IF EXISTS `page_objects`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `page_objects` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `next_id` bigint(20) DEFAULT NULL,
   `page_id` bigint(20) unsigned DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
   `url` text DEFAULT NULL,

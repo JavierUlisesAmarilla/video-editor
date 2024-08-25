@@ -29,6 +29,7 @@ export interface IPage {
 
 export interface IPageObject {
     id?: number
+    next_id?: number
     page_id: number
     type: string
     url: string

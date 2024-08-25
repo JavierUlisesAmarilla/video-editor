@@ -41,6 +41,9 @@ class EditorController extends Controller
         if (!$row) {
             $row = new PageObject;
         }
+        if ($request->next_id) {
+            $row->next_id = $request->next_id;
+        }
         if ($request->page_id) {
             $row->page_id = $request->page_id;
         }
