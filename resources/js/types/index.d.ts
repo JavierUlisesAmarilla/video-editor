@@ -1,3 +1,4 @@
+import {Vector3} from "@react-three/fiber"
 import {AnimationAction} from "three"
 
 export interface User {
@@ -57,4 +58,18 @@ export interface ITextInfo {
     letterSpacing?: number
     textDecorationThickness?: number
     textAlign?: string
+}
+
+export interface IModelInfo {
+    imageSrc: string
+    modelSrc: string
+    position?: Vector3
+    rotation?: Vector3
+    scale?: Vector3
+    offset?: Vector3
+}
+
+export interface IMultimediaInfo {
+    type: string
+    src: string
 }

@@ -1,9 +1,7 @@
-import {useZustand} from "@/store/useZustand"
-import {IPageObject} from "@/types"
-import axios from "axios"
-import {toast} from "react-toast"
+import {useApi} from "@/hooks/useApi"
+import {IMultimediaInfo} from "@/types"
 
-const multimediaArr: { type: string; src: string }[] = [
+const multimediaArr: IMultimediaInfo[] = [
   {
     type: "image",
     src: "/storage/image/1.jpg",
@@ -55,7 +53,7 @@ const multimediaArr: { type: string; src: string }[] = [
 ]
 
 export const Multimedia = () => {
-  const { selPageId, setPageObject, setSelPageObjectId } = useZustand()
+  const { createNewMultimediaToSelPage } = useApi()
 
   return (
     <div className="flex gap-2 flex-wrap">
@@ -65,21 +63,7 @@ export const Multimedia = () => {
             <img
               className="w-32 h-20"
               src={v.src}
-              onClick={async () => {
-                if (!selPageId) {
-                  return
-                }
-                const newPageObject: IPageObject = {
-                  page_id: selPageId,
-                  type: v.type,
-                  url: v.src,
-                }
-                const res = await axios.post("/savePageObject", newPageObject)
-                toast("Image created.")
-                newPageObject.id = res.data.id
-                setPageObject(newPageObject)
-                setSelPageObjectId(res.data.id)
-              }}
+              onClick={() => createNewMultimediaToSelPage(v)}
             />
           )}
           {v.type === "video" && (
@@ -91,18 +75,7 @@ export const Multimedia = () => {
               onMouseOver={(e) => e.target.play()}
               // @ts-expect-error -- TODO
               onMouseOut={(e) => e.target.pause()}
-              onClick={async () => {
-                const newPageObject: IPageObject = {
-                  page_id: selPageId,
-                  type: v.type,
-                  url: v.src,
-                }
-                const res = await axios.post("/savePageObject", newPageObject)
-                toast("Video created.")
-                newPageObject.id = res.data.id
-                setPageObject(newPageObject)
-                setSelPageObjectId(res.data.id)
-              }}
+              onClick={() => createNewMultimediaToSelPage(v)}
             />
           )}
         </div>

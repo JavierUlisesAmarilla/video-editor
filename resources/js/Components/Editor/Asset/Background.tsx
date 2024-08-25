@@ -1,5 +1,5 @@
+import {useApi} from "@/hooks/useApi"
 import {useZustand} from "@/store/useZustand"
-import axios from "axios"
 import classNames from "classnames"
 import {useState} from "react"
 import {HexColorPicker} from "react-colorful"
@@ -31,11 +31,12 @@ const gradientsArr = [
 ]
 
 export const Background = () => {
-  const { pageArr, selPageId, setSelPage } = useZustand()
+  const { pageArr, selPageId } = useZustand()
   const selPage = pageArr.find((v) => v.id === selPageId)
   const bgColor =
     selPage?.background?.substring(0, 1) === "#" ? selPage.background : ""
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
+  const { updateSelPageBackground } = useApi()
 
   return (
     <div className="flex flex-col gap-2">
@@ -48,13 +49,7 @@ export const Background = () => {
         {isHexColorPickerVisible && (
           <HexColorPicker
             color={bgColor}
-            onChange={(v) => {
-              if (selPage) {
-                selPage.background = v
-                axios.post("/savePage", selPage)
-                setSelPage(selPage)
-              }
-            }}
+            onChange={(v) => updateSelPageBackground(v)}
           />
         )}
       </div>
@@ -67,13 +62,7 @@ export const Background = () => {
             })}
             key={i}
             src={v}
-            onClick={() => {
-              if (selPage) {
-                selPage.background = v
-                axios.post("/savePage", selPage)
-                setSelPage(selPage)
-              }
-            }}
+            onClick={() => updateSelPageBackground(v)}
           />
         ))}
       </div>

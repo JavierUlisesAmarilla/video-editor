@@ -1,8 +1,5 @@
-import {useZustand} from "@/store/useZustand"
-import {IPageObject} from "@/types"
-import axios from "axios"
+import {useApi} from "@/hooks/useApi"
 import {BsCollectionPlay} from "react-icons/bs"
-import {toast} from "react-toast"
 
 const audioArr: { src: string; name: string }[] = [
   {
@@ -20,7 +17,7 @@ const audioArr: { src: string; name: string }[] = [
 ]
 
 export const Audio = () => {
-  const { selPageId, setPageObject, setSelPageObjectId } = useZustand()
+  const { createNewAudioToSelPage } = useApi()
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -32,21 +29,7 @@ export const Audio = () => {
           onMouseOver={(e) => e.target.lastChild.play()}
           // @ts-expect-error -- TODO
           onMouseOut={(e) => e.target.lastChild.pause()}
-          onClick={async () => {
-            if (!selPageId) {
-              return
-            }
-            const newPageObject: IPageObject = {
-              page_id: selPageId,
-              type: "audio",
-              url: v.src,
-            }
-            const res = await axios.post("/savePageObject", newPageObject)
-            toast("Audio created.")
-            newPageObject.id = res.data.id
-            setPageObject(newPageObject)
-            setSelPageObjectId(res.data.id)
-          }}
+          onClick={() => createNewAudioToSelPage(v.src)}
         >
           <div className="pointer-events-none">{v.name}</div>
           <BsCollectionPlay className="text-3xl pointer-events-none"/>

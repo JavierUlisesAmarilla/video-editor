@@ -1,8 +1,8 @@
 import InputLabel from "@/Components/InputLabel"
 import TextInput from "@/Components/TextInput"
+import {useApi} from "@/hooks/useApi"
 import {useZustand} from "@/store/useZustand"
-import {IPageObject, ITextInfo} from "@/types"
-import axios from "axios"
+import {ITextInfo} from "@/types"
 import classNames from "classnames"
 import {ReactNode, useState} from "react"
 import {HexColorPicker} from "react-colorful"
@@ -13,16 +13,6 @@ import {
   BsTextRight,
 } from "react-icons/bs"
 import Select from "react-select"
-import {toast} from "react-toast"
-
-const addTextInfoToStringify = (
-  textInfo: ITextInfo,
-  stringify: string
-): string => {
-  const parse: ITextInfo = { ...JSON.parse(stringify), ...textInfo }
-  stringify = JSON.stringify(parse)
-  return stringify
-}
 
 const textAligns: { [key: string]: ReactNode } = {
   left: <BsTextLeft/>,
@@ -59,15 +49,8 @@ const fontWeightOptionArr = [
 ]
 
 export const Text = () => {
-  const {
-    selPageObjectId,
-    setSelPageObjectId,
-    pageObjectArr,
-    setPageObject,
-    selPageId,
-    isSaving,
-    setIsSaving,
-  } = useZustand()
+  const { selPageObjectId, pageObjectArr, selPageId, isSaving, setIsSaving } =
+    useZustand()
   const selPageObject = pageObjectArr.find((v) => v.id === selPageObjectId)
   const textInfo: ITextInfo =
     selPageObject?.type === "text" ? JSON.parse(selPageObject.url || "{}") : {}
@@ -82,17 +65,7 @@ export const Text = () => {
   const textAlign = textInfo.textAlign
 
   const [isHexColorPickerVisible, setIsHexColorPickerVisible] = useState(false)
-
-  const updateSelTextInfo = (newTextInfo: ITextInfo) => {
-    if (selPageObject?.type === "text") {
-      selPageObject.url = addTextInfoToStringify(
-        newTextInfo,
-        selPageObject.url
-      )
-      setPageObject(selPageObject)
-      axios.post("/savePageObject", selPageObject)
-    }
-  }
+  const { createNewTextToSelPage, updateSelTextInfo } = useApi()
 
   return (
     <div className="flex flex-col gap-4">
@@ -111,29 +84,7 @@ export const Text = () => {
               updateSelTextInfo({ text: e.target.value })
             } else if (selPageId) {
               setIsSaving(true)
-              const newPageObject: IPageObject = {
-                page_id: selPageId,
-                type: "text",
-                url: addTextInfoToStringify(
-                  {
-                    text: e.target.value,
-                    color: "#000000",
-                    fontFamily: `ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
-                    fontWeight: 400,
-                    fontSize: 96,
-                    lineHeight: 1,
-                    letterSpacing: 0,
-                    textDecorationThickness: 0,
-                    textAlign: "left",
-                  },
-                  "{}"
-                ),
-              }
-              const res = await axios.post("/savePageObject", newPageObject)
-              toast("Text created.")
-              newPageObject.id = res.data.id
-              setPageObject(newPageObject)
-              setSelPageObjectId(res.data.id)
+              await createNewTextToSelPage(e.target.value)
               setIsSaving(false)
             }
           }}

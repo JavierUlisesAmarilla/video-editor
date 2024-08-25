@@ -1,17 +1,7 @@
-import {useZustand} from "@/store/useZustand"
-import {IPageObject} from "@/types"
-import {Vector3} from "@react-three/fiber"
-import axios from "axios"
-import {toast} from "react-toast"
+import {useApi} from "@/hooks/useApi"
+import {IModelInfo} from "@/types"
 
-const modelArr: {
-  imageSrc: string;
-  modelSrc: string;
-  position?: Vector3;
-  rotation?: Vector3;
-  scale?: Vector3;
-  offset?: Vector3;
-}[] = [
+const modelArr: IModelInfo[] = [
   {
     imageSrc: "/storage/model/arrow.png",
     modelSrc: "/storage/model/arrow_o.glb",
@@ -173,7 +163,7 @@ const modelArr: {
 ]
 
 export const Model = () => {
-  const { selPageId, setPageObject, setSelPageObjectId } = useZustand()
+  const { createNewModelToSelPage } = useApi()
 
   return (
     <div className="flex gap-2 flex-wrap">
@@ -182,50 +172,7 @@ export const Model = () => {
           className="w-32 h-20 border rounded cursor-pointer border-gray-500"
           key={i}
           src={v.imageSrc}
-          onClick={async () => {
-            if (!selPageId) {
-              return
-            }
-            const newPageObject: IPageObject = {
-              page_id: selPageId,
-              type: "model",
-              url: v.modelSrc,
-            }
-
-            if (v.position) {
-              const p = v.position.toString().split(",").map(parseFloat)
-              newPageObject.px = p[0]
-              newPageObject.py = p[1]
-              newPageObject.pz = p[2]
-            }
-
-            if (v.rotation) {
-              const r = v.rotation.toString().split(",").map(parseFloat)
-              newPageObject.rx = r[0]
-              newPageObject.ry = r[1]
-              newPageObject.rz = r[2]
-            }
-
-            if (v.scale) {
-              const s = v.scale.toString().split(",").map(parseFloat)
-              newPageObject.sx = s[0]
-              newPageObject.sy = s[1]
-              newPageObject.sz = s[2]
-            }
-
-            if (v.offset) {
-              const o = v.offset.toString().split(",").map(parseFloat)
-              newPageObject.ox = o[0]
-              newPageObject.oy = o[1]
-              newPageObject.oz = o[2]
-            }
-
-            const res = await axios.post("/savePageObject", newPageObject)
-            toast("Model created.")
-            newPageObject.id = res.data.id
-            setPageObject(newPageObject)
-            setSelPageObjectId(res.data.id)
-          }}
+          onClick={() => createNewModelToSelPage(v)}
         />
       ))}
     </div>

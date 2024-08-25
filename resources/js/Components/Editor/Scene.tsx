@@ -1,10 +1,8 @@
 import {useZustand} from "@/store/useZustand"
-import {IPage} from "@/types"
-import axios from "axios"
 import classNames from "classnames"
 // import {BiRedo, BiUndo} from "react-icons/bi"
+import {useApi} from "@/hooks/useApi"
 import {BsPlusSquare, BsTrash} from "react-icons/bs"
-import {toast} from "react-toast"
 import {R3fScene} from "./R3fScene/R3fScene"
 
 const transformModes: { [key: string]: string } = {
@@ -14,15 +12,8 @@ const transformModes: { [key: string]: string } = {
 }
 
 export const Scene = () => {
-  const {
-    pageArr,
-    selPageId,
-    setSelPageId,
-    addPage,
-    removePage,
-    transformMode,
-    setTransformMode,
-  } = useZustand()
+  const { transformMode, setTransformMode } = useZustand()
+  const { createNewPage, deleteSelPageCond, deleteSelPage } = useApi()
 
   return (
     <div className="w-full h-full text-sm relative">
@@ -57,14 +48,7 @@ export const Scene = () => {
         <div className="flex gap-2 items-center">
           <div
             className="flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500"
-            onClick={async () => {
-              const newPage: IPage = {}
-              const res = await axios.post("/savePage", newPage)
-              toast("New page created.")
-              newPage.id = res.data.id
-              addPage(newPage)
-              setSelPageId(newPage.id!)
-            }}
+            onClick={createNewPage}
           >
             <BsPlusSquare className="text-base"/>
             <div>New Page</div>
@@ -72,21 +56,9 @@ export const Scene = () => {
           <div
             className={classNames(
               "flex gap-1 items-center p-1 border rounded cursor-pointer border-gray-500",
-              { "text-gray-500": !selPageId }
+              { "text-gray-500": !deleteSelPageCond() }
             )}
-            onClick={async () => {
-              if (selPageId) {
-                const res = await axios.delete(`/deletePage/${selPageId}`)
-
-                if (res.data) {
-                  toast(
-                    `Page ${pageArr.findIndex((v) => v.id === selPageId) + 1} removed.`
-                  )
-                  removePage(selPageId)
-                  setSelPageId(0)
-                }
-              }
-            }}
+            onClick={deleteSelPage}
           >
             <BsTrash className="text-base"/>
             <div>Remove Page</div>

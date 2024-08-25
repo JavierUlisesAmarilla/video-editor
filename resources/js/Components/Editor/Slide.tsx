@@ -1,12 +1,11 @@
+import {useApi} from "@/hooks/useApi"
 import {useZustand} from "@/store/useZustand"
-import {IPage} from "@/types"
-import axios from "axios"
 import classNames from "classnames"
 import {BsCardImage, BsPlusSquare} from "react-icons/bs"
-import {toast} from "react-toast"
 
 export const Slide = () => {
-  const { pageArr, addPage, selPageId, setSelPageId } = useZustand()
+  const { pageArr, selPageId, setSelPageId } = useZustand()
+  const { createNewPage } = useApi()
 
   return (
     <div className="w-full h-full text-sm flex flex-col items-center gap-2 p-2 overflow-auto">
@@ -32,14 +31,7 @@ export const Slide = () => {
       ))}
       <div
         className="flex items-center gap-1 border p-1 cursor-pointer rounded border-gray-500"
-        onClick={async () => {
-          const newPage: IPage = {}
-          const res = await axios.post("/savePage", newPage)
-          toast("New page created.")
-          newPage.id = res.data.id
-          addPage(newPage)
-          setSelPageId(newPage.id!)
-        }}
+        onClick={createNewPage}
       >
         <BsPlusSquare/>
         New Page
