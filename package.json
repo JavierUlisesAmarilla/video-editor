@@ -31,7 +31,7 @@
         "flexlayout-react": "^0.7.15",
         "framer-motion": "^11.3.29",
         "framer-motion-3d": "^11.3.29",
-        "gantt-task-react": "^0.3.9",
+        "gantt-schedule-timeline-calendar": "^3.37.5",
         "globals": "^15.9.0",
         "gsap": "^3.12.5",
         "laravel-vite-plugin": "^1.0",

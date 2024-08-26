@@ -1,130 +1,104 @@
-import "gantt-task-react"
-import {Gantt, Task} from "gantt-task-react"
-import "gantt-task-react/dist/index.css"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import GSTC from "gantt-schedule-timeline-calendar"
+import "gantt-schedule-timeline-calendar/dist/style.css"
+import {useEffect, useRef} from "react"
 
-const currentDate = new Date()
-const tasks: Task[] = [
+const rowsFromDB = [
   {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-    name: "Some Project",
-    id: "ProjectSample",
-    progress: 25,
-    type: "project",
-
-    hideChildren: false,
+    id: "1",
+    label: "Row 1",
   },
   {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2, 12, 28),
-    name: "Idea",
-    id: "Task 0",
-    progress: 45,
-    type: "task",
-    project: "ProjectSample",
-  },
-  {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4, 0, 0),
-    name: "Research",
-    id: "Task 1",
-    progress: 25,
-    dependencies: ["Task 0"],
-    type: "task",
-    project: "ProjectSample",
-  },
-  {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8, 0, 0),
-    name: "Discussion with team",
-    id: "Task 2",
-    progress: 10,
-    dependencies: ["Task 1"],
-    type: "task",
-    project: "ProjectSample",
-  },
-  {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 9, 0, 0),
-    name: "Developing",
-    id: "Task 3",
-    progress: 2,
-    dependencies: ["Task 2"],
-    type: "task",
-    project: "ProjectSample",
-  },
-  {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 10),
-    name: "Review",
-    id: "Task 4",
-    type: "task",
-    progress: 70,
-    dependencies: ["Task 2"],
-    project: "ProjectSample",
-  },
-  {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-    name: "Release",
-    id: "Task 6",
-    progress: currentDate.getMonth(),
-    type: "milestone",
-    dependencies: ["Task 4"],
-    project: "ProjectSample",
-  },
-  {
-    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 18),
-    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 19),
-    name: "Party Time",
-    id: "Task 9",
-    progress: 0,
-    isDisabled: true,
-    type: "task",
+    id: "2",
+    label: "Row 2",
   },
 ]
 
+const itemsFromDB = [
+  {
+    id: "1",
+    label: "Item 1",
+    rowId: "1",
+    time: {
+      start: GSTC.api.date("2020-01-01").startOf("day").valueOf(),
+      end: GSTC.api.date("2020-01-02").endOf("day").valueOf(),
+    },
+  },
+  {
+    id: "2",
+    label: "Item 2",
+    rowId: "1",
+    time: {
+      start: GSTC.api.date("2020-02-01").startOf("day").valueOf(),
+      end: GSTC.api.date("2020-02-02").endOf("day").valueOf(),
+    },
+  },
+  {
+    id: "3",
+    label: "Item 3",
+    rowId: "2",
+    time: {
+      start: GSTC.api.date("2020-01-15").startOf("day").valueOf(),
+      end: GSTC.api.date("2020-01-20").endOf("day").valueOf(),
+    },
+  },
+]
+
+const columnsFromDB = [
+  {
+    id: "id",
+    data: ({ row }: { row: any }) => GSTC.api.sourceID(row.id), // Show original id (not internal GSTCID)
+    sortable: ({ row }: { row: any }) => Number(GSTC.api.sourceID(row.id)), // Sort by id converted to number
+    width: 80,
+    header: {
+      content: "ID",
+    },
+  },
+  {
+    id: "label",
+    data: "label",
+    sortable: "label",
+    isHTML: false,
+    width: 230,
+    header: {
+      content: "Label",
+    },
+  },
+]
+
+const config = {
+  // For free key for your domain please visit https://gstc.neuronet.io/free-key
+  // If you need commercial license please visit https://gantt-schedule-timeline-calendar.neuronet.io/pricing
+  licenseKey:
+    "====BEGIN LICENSE KEY====\nXOfH/lnVASM6et4Co473t9jPIvhmQ/l0X3Ewog30VudX6GVkOB0n3oDx42NtADJ8HjYrhfXKSNu5EMRb5KzCLvMt/pu7xugjbvpyI1glE7Ha6E5VZwRpb4AC8T1KBF67FKAgaI7YFeOtPFROSCKrW5la38jbE5fo+q2N6wAfEti8la2ie6/7U2V+SdJPqkm/mLY/JBHdvDHoUduwe4zgqBUYLTNUgX6aKdlhpZPuHfj2SMeB/tcTJfH48rN1mgGkNkAT9ovROwI7ReLrdlHrHmJ1UwZZnAfxAC3ftIjgTEHsd/f+JrjW6t+kL6Ef1tT1eQ2DPFLJlhluTD91AsZMUg==||U2FsdGVkX1/SWWqU9YmxtM0T6Nm5mClKwqTaoF9wgZd9rNw2xs4hnY8Ilv8DZtFyNt92xym3eB6WA605N5llLm0D68EQtU9ci1rTEDopZ1ODzcqtTVSoFEloNPFSfW6LTIC9+2LSVBeeHXoLEQiLYHWihHu10Xll3KsH9iBObDACDm1PT7IV4uWvNpNeuKJc\npY3C5SG+3sHRX1aeMnHlKLhaIsOdw2IexjvMqocVpfRpX4wnsabNA0VJ3k95zUPS3vTtSegeDhwbl6j+/FZcGk9i+gAy6LuetlKuARjPYn2LH5Be3Ah+ggSBPlxf3JW9rtWNdUoFByHTcFlhzlU9HnpnBUrgcVMhCQ7SAjN9h2NMGmCr10Rn4OE0WtelNqYVig7KmENaPvFT+k2I0cYZ4KWwxxsQNKbjEAxJxrzK4HkaczCvyQbzj4Ppxx/0q+Cns44OeyWcwYD/vSaJm4Kptwpr+L4y5BoSO/WeqhSUQQ85nvOhtE0pSH/ZXYo3pqjPdQRfNm6NFeBl2lwTmZUEuw==\n====END LICENSE KEY====",
+  list: {
+    columns: {
+      data: GSTC.api.fromArray(columnsFromDB),
+    },
+    rows: GSTC.api.fromArray(rowsFromDB),
+  },
+  chart: {
+    items: GSTC.api.fromArray(itemsFromDB),
+  },
+}
+
 export const Timeline = () => {
-  const onSelect = (task: Task, isSelected: boolean) => {
-    console.log("test: onSelect:", task, isSelected)
-  }
+  const ref = useRef<HTMLDivElement>(null)
 
-  const onDoubleClick = (task: Task) => {
-    console.log("test: onDoubleClick:", task)
-  }
+  useEffect(() => {
+    if (!ref.current) {
+      return
+    }
 
-  const onClick = (task: Task) => {
-    console.log("test: onClick:", task)
-  }
+    // Generate GSTC state from configuration object
+    const state = GSTC.api.stateFromConfig(config)
 
-  const onDateChange = (task: Task, children: Task[]) => {
-    console.log("test: onDateChange:", task, children)
-  }
+    // Create an instance and mount the component
+    GSTC({
+      element: ref.current,
+      state,
+    })
+  }, [])
 
-  const onProgressChange = (task: Task, children: Task[]) => {
-    console.log("test: onProgressChange:", task, children)
-  }
-
-  const onDelete = (task: Task) => {
-    console.log("test: onDelete:", task)
-  }
-
-  const onExpanderClick = (task: Task) => {
-    console.log("test: onExpanderClick:", task)
-  }
-
-  return (
-    <div className="w-full h-full overflow-auto">
-      <Gantt
-        tasks={tasks}
-        onSelect={onSelect}
-        onDoubleClick={onDoubleClick}
-        onClick={onClick}
-        onDateChange={onDateChange}
-        onProgressChange={onProgressChange}
-        onDelete={onDelete}
-        onExpanderClick={onExpanderClick}
-      />
-    </div>
-  )
+  return <div ref={ref} className="w-full h-full overflow-auto"/>
 }
